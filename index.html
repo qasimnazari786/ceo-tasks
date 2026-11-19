@@ -218,6 +218,8 @@ textarea.inp.title{font:700 16px/1.35 var(--font-d);min-height:60px}
 .subs li{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-size:14px}
 .subs li.done span.tt{color:var(--text-3);text-decoration:line-through}
 .subs .own{margin-left:auto;font-size:12px;color:var(--text-3);white-space:nowrap}
+.addsub{display:grid;grid-template-columns:1fr 150px auto;gap:8px;margin-top:8px}
+@media (max-width:520px){ .addsub{grid-template-columns:1fr auto} .addsub input[type=date]{grid-column:1} }
 .confirm-chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:14px}
 .note{font-size:13px;color:var(--text-3)}
 
@@ -387,10 +389,11 @@ const CEO_CONFIG = {
 const LOGO_SRC = (s => s.startsWith("%%") ? "assets/adroit-logo.svg" : s)("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ3IiB2aWV3Qm94PSIwIDAgMjAwIDQ3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNzguMDE2OCAxNC45MzYyVjI0LjQwMThINzQuMTIzN1YyMS4yMTNDNzIuNDQ1NSAyMy40OTU5IDY5Ljc1OTQgMjQuODA0OSA2Ni43MDU0IDI0LjgwNDlDNjIuODQ1MSAyNC44MDQ5IDYwLjQ2MjYgMjIuNzkwNCA2MC40NjI2IDE5LjQ2OEM2MC40NjI2IDE2LjA3NzYgNjIuOTQ1OCAxNC4xMzExIDY3LjIwOTMgMTQuMTMxMUM2OS42NTg2IDE0LjEzMTEgNzIuMjc2NyAxNC43Njg2IDc0LjEyMzcgMTUuODA5MlYxNS4yMDQ1Qzc0LjEyMzcgMTEuOTQ4OSA3Mi40MTE1IDEwLjQzOTUgNjguNzE5OSAxMC40Mzk1QzY2LjUwMzggMTAuNDM5NSA2NC41NTcyIDEwLjk3NjIgNjIuNzc4MyAxMi4xMTc3TDYxLjM2ODQgOS4xNjMyNkM2My41ODM0IDcuNzg3NDMgNjYuMDY3OSA3LjExNTkxIDY5LjI1NjcgNy4xMTU5MUM3NS4zMzE5IDcuMTE1OTEgNzguMDE2OCA5LjUzMjQyIDc4LjAxNjggMTQuOTM2MlpNNzQuMTIzNyAxOC4zOTMzQzcyLjU0NjMgMTcuNTU0MiA3MC4yOTczIDE3LjAxNzUgNjguMjUgMTcuMDE3NUM2NS43MzE1IDE3LjAxNzUgNjQuNDU2NSAxNy44MjI2IDY0LjQ1NjUgMTkuMzY3MkM2NC40NTY1IDIwLjg0MzggNjUuNjMxOSAyMS42ODI5IDY3Ljc4MDEgMjEuNjgyOUM3MC4yOTczIDIxLjY4MjkgNzIuNjQ1OCAyMC42MDk1IDc0LjEyMzcgMTguNzYyNVYxOC4zOTMzWiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNOTkuMTYxOCAwLjU3MDczMVYyNC40MDE4SDk1LjI2ODZWMjEuMjEzQzkzLjY5MTIgMjMuNTYyNyA5MS40NzUxIDI0LjgwNDkgODguNzU3NSAyNC44MDQ5Qzg0LjA1OCAyNC44MDQ5IDgwLjgzNTIgMjEuMjEzIDgwLjgzNTIgMTUuOTc2OEM4MC44MzUyIDEwLjcwNzkgODQuMDU4IDcuMTE1OTIgODguNzU3NSA3LjExNTkyQzkxLjQ3NTEgNy4xMTU5MiA5My42OTEyIDguMzU4MTcgOTUuMjY4NiAxMC43MDc5VjAuNTcwNzMxSDk5LjE2MThaTTk1LjI2ODYgMTMuMzU4N0M5My45NTk2IDExLjU0NyA5MS44NzgzIDEwLjQ3MjMgODkuNzY0MSAxMC40NzIzQzg2LjcwODkgMTAuNDcyMyA4NC43OTYzIDEyLjYyMDQgODQuNzk2MyAxNS45NzY4Qzg0Ljc5NjMgMTkuMzAwNCA4Ni43MDg5IDIxLjQ0ODYgODkuNzY0MSAyMS40NDg2QzkxLjg3ODMgMjEuNDQ4NiA5My45NTk2IDIwLjQwNzkgOTUuMjY4NiAxOC41NjIxVjEzLjM1ODdaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xMTUuMTk3IDcuMjUwNzFMMTE0Ljk2MiAxMC45NzYyQzExNC40MjUgMTAuODc1NSAxMTMuNjg3IDEwLjgwODcgMTEzLjA4MiAxMC44MDg3QzExMC4zMyAxMC44MDg3IDEwOC4zNSAxMS43ODEzIDEwNi42NzIgMTMuOTI5NVYyNC40MDE4SDEwMi43NzlWNy41MTkwOEgxMDYuNjcyVjExLjEwOThDMTA4LjM4NCA4LjQ5MTc0IDExMC41OTkgNy4xMTU5MiAxMTMuODIgNy4xMTU5MkMxMTQuMjkgNy4xMTU5MiAxMTQuNzk0IDcuMTQ5OTIgMTE1LjE5NyA3LjI1MDcxWiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNMTE1LjY3NSAxNS45NzY4QzExNS42NzUgMTAuNjczOSAxMTkuNTAyIDcuMTE1OTIgMTI1LjI0MiA3LjExNTkyQzEzMC45ODEgNy4xMTU5MiAxMzQuODA3IDEwLjY3MzkgMTM0LjgwNyAxNS45NzY4QzEzNC44MDcgMjEuMjc5OCAxMzAuOTgxIDI0LjgwNDkgMTI1LjI0MiAyNC44MDQ5QzExOS41MDIgMjQuODA0OSAxMTUuNjc1IDIxLjI3OTggMTE1LjY3NSAxNS45NzY4Wk0xMzAuODQ3IDE1Ljk3NjhDMTMwLjg0NyAxMi42NTQ0IDEyOC42MzEgMTAuNDcyMyAxMjUuMjQyIDEwLjQ3MjNDMTIxLjg1MSAxMC40NzIzIDExOS42MzYgMTIuNjU0NCAxMTkuNjM2IDE1Ljk3NjhDMTE5LjYzNiAxOS4yNjY0IDEyMS44NTEgMjEuNDQ4NiAxMjUuMjQyIDIxLjQ0ODZDMTI4LjYzMSAyMS40NDg2IDEzMC44NDcgMTkuMjY2NCAxMzAuODQ3IDE1Ljk3NjhaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xMzcuMDU5IDIuMjQ4OTJDMTM3LjA1OSAwLjkzOTg4MyAxMzguMDMzIDAgMTM5LjQ0MyAwQzE0MC44NTMgMCAxNDEuODI1IDAuOTM5ODgzIDE0MS44MjUgMi4yNDg5MkMxNDEuODI1IDMuNTkxOTYgMTQwLjg1MyA0LjUzMTg1IDEzOS40NDMgNC41MzE4NUMxMzguMDMzIDQuNTMxODUgMTM3LjA1OSAzLjU5MTk2IDEzNy4wNTkgMi4yNDg5MlpNMTM3LjQ5NiA3LjUxOTA4SDE0MS4zODlWMjQuNDAxOEgxMzcuNDk2VjcuNTE5MDhaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xNTguNDcyIDIwLjY0MjJDMTU3LjQzMSAyMS4xNzkgMTU2LjM1NyAyMS40NDg2IDE1NS4xODIgMjEuNDQ4NkMxNTMuMjM2IDIxLjQ0ODYgMTUyLjQ2MyAyMC43NDI5IDE1Mi40NjMgMTguOTMxM1YxMC41NzNIMTU4Ljg0MVY3LjUxOTA3SDE1Mi40NjNWMS41ODI0NUwxNDguNTcgMy41NzY3MlY3LjUxOTA3SDE0NC4xMzlWMTAuNTczSDE0OC41N1YxOS41Njg3QzE0OC41NyAyMy4wOTI3IDE1MC41NSAyNC44MDQ5IDE1NC41NzggMjQuODA0OUMxNTYuMzU3IDI0LjgwNDkgMTU3LjkwMSAyNC40Njg2IDE1OS4zMTEgMjMuNzY0MkwxNTguNDcyIDIwLjY0MjJaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xNTIuNDM4IDEuNTc3MzFMMTUyLjQ2MyAxLjU4MjQ1TDE1Mi40NjMgMS41NzczMUgxNTIuNDM4WiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNNzQuNjc0MyAzNy43NTczVjQ1Ljg5MzVINzIuODY2MVY0Mi45ODM0QzcxLjExNDIgNDUuMTAyMyA2OC42Mjg0IDQ2LjIzMjggNjUuODU5NCA0Ni4yMzI4QzYyLjUyNTIgNDYuMjMyOCA2MC40NjI2IDQ0LjU2NTcgNjAuNDYyNiA0MS44NTNDNjAuNDYyNiAzOS4xMTI2IDYyLjU4MTQgMzcuNTAyOCA2Ni4yNTUgMzcuNTAyOEM2OC41NzExIDM3LjUwMjggNzEuMDAwNyAzOC4xNTE4IDcyLjg2NjEgMzkuMjUzN1YzNy45NTQ2QzcyLjg2NjEgMzQuNTkyOCA3MS4yNTUyIDMzLjEyMjkgNjcuNjEwMyAzMy4xMjI5QzY1LjQ5MTQgMzMuMTIyOSA2My42ODMzIDMzLjYwMzMgNjIuMTg1OSAzNC42NDlMNjEuNDIzNCAzMy4yMDc4QzYzLjE3NTMgMzIuMDQ5NyA2NS4yMDkzIDMxLjQ4NDUgNjcuNzUyNCAzMS40ODQ1QzcyLjQ5ODEgMzEuNDg0NSA3NC42NzQzIDMzLjQzMzcgNzQuNjc0MyAzNy43NTczWk03Mi44NjYxIDQwLjcyMzVDNzEuMTQyOCAzOS42NDkzIDY4Ljg1NDIgMzkuMDU2NCA2Ni41OTMzIDM5LjA1NjRDNjMuNzY4MSAzOS4wNTY0IDYyLjI5OTMgNDAuMDE3MiA2Mi4yOTkzIDQxLjgyNTRDNjIuMjk5MyA0My42MDQ5IDYzLjcxMTkgNDQuNjIxOSA2Ni4xNDE1IDQ0LjYyMTlDNjguNzk3IDQ0LjYyMTkgNzEuMzExNSA0My40MzUyIDcyLjg2NjEgNDEuNDU3NFY0MC43MjM1WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNNzUuOTgxMyA0NC4xMTM5TDc2LjgyODYgNDIuNjcyN0M3OC42MDkyIDQzLjkxNTYgODAuNzU1NiA0NC42MjE5IDgzLjQxMjEgNDQuNjIxOUM4Ni41NDggNDQuNjIxOSA4OC4zODM4IDQzLjY2MTEgODguMzgzOCA0Mi4wMjI2Qzg4LjM4MzggNDAuNDY5IDg3LjIyNTcgMzkuOTYgODMuMTU3NiAzOS42Nzc5Qzc4LjMyNiAzOS4zMzg1IDc2LjYzMTMgMzguMjkzOSA3Ni42MzEzIDM1LjY5NDZDNzYuNjMxMyAzMy4wOTU0IDc5LjE0NTggMzEuNDg0NSA4My4xMDE0IDMxLjQ4NDVDODUuNTMxIDMxLjQ4NDUgODcuNjc3NSAzMi4wNDk3IDg5LjMxNyAzMy4yMDc4TDg4LjU1MzUgMzQuNjQ5Qzg3LjE2OTUgMzMuNjMyIDg1LjE5MTcgMzMuMDY2NyA4Mi45ODggMzMuMDY2N0M4MC4xNjI4IDMzLjA2NjcgNzguNDY4MSAzNC4wNTYyIDc4LjQ2ODEgMzUuNjA5OEM3OC40NjgxIDM3LjEzNDggNzkuNjI2MiAzNy42NzI1IDgzLjcyMjkgMzcuOTU0NkM4OC40OTcyIDM4LjI5MzkgOTAuMjIwNiAzOS4zMzg1IDkwLjIyMDYgNDEuOTM3OEM5MC4yMjA2IDQ0LjY3ODEgODcuNzM0NyA0Ni4yMzI4IDgzLjM4MzUgNDYuMjMyOEM4MC4zNjAxIDQ2LjIzMjggNzcuODQ1NiA0NS40NDE3IDc1Ljk4MTMgNDQuMTEzOVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTkxLjEyOTkgNDQuMTEzOUw5MS45NzcyIDQyLjY3MjdDOTMuNzU3OCA0My45MTU2IDk1LjkwNDIgNDQuNjIxOSA5OC41NjA4IDQ0LjYyMTlDMTAxLjY5NyA0NC42MjE5IDEwMy41MzIgNDMuNjYxMSAxMDMuNTMyIDQyLjAyMjZDMTAzLjUzMiA0MC40NjkgMTAyLjM3NCAzOS45NiA5OC4zMDYyIDM5LjY3NzlDOTMuNDc0NiAzOS4zMzg1IDkxLjc3OTkgMzguMjkzOSA5MS43Nzk5IDM1LjY5NDZDOTEuNzc5OSAzMy4wOTU0IDk0LjI5NDQgMzEuNDg0NSA5OC4yNSAzMS40ODQ1QzEwMC42OCAzMS40ODQ1IDEwMi44MjYgMzIuMDQ5NyAxMDQuNDY2IDMzLjIwNzhMMTAzLjcwMiAzNC42NDlDMTAyLjMxOCAzMy42MzIgMTAwLjM0IDMzLjA2NjcgOTguMTM2NiAzMy4wNjY3Qzk1LjMxMTQgMzMuMDY2NyA5My42MTY3IDM0LjA1NjIgOTMuNjE2NyAzNS42MDk4QzkzLjYxNjcgMzcuMTM0OCA5NC43NzQ4IDM3LjY3MjUgOTguODcxNSAzNy45NTQ2QzEwMy42NDYgMzguMjkzOSAxMDUuMzY5IDM5LjMzODUgMTA1LjM2OSA0MS45Mzc4QzEwNS4zNjkgNDQuNjc4MSAxMDIuODgzIDQ2LjIzMjggOTguNTMyMSA0Ni4yMzI4Qzk1LjUwODcgNDYuMjMyOCA5Mi45OTQyIDQ1LjQ0MTcgOTEuMTI5OSA0NC4xMTM5WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTA2LjMzMiAzOC44NTgxQzEwNi4zMzIgMzQuNDUxNyAxMDkuNDY4IDMxLjQ4NDUgMTE0LjE1NyAzMS40ODQ1QzExOC44MTkgMzEuNDg0NSAxMjEuOTg0IDM0LjQ1MTcgMTIxLjk4NCAzOC44NTgxQzEyMS45ODQgNDMuMjM4IDExOC44MTkgNDYuMjMyOCAxMTQuMTU3IDQ2LjIzMjhDMTA5LjQ2OCA0Ni4yMzI4IDEwNi4zMzIgNDMuMjM4IDEwNi4zMzIgMzguODU4MVpNMTIwLjExOSAzOC44NTgxQzEyMC4xMTkgMzUuNDQwMSAxMTcuNzE3IDMzLjEyMyAxMTQuMTU3IDMzLjEyM0MxMTAuNTcgMzMuMTIzIDEwOC4xNjkgMzUuNDQwMSAxMDguMTY5IDM4Ljg1ODFDMTA4LjE2OSA0Mi4yNDg1IDExMC41NyA0NC41OTQzIDExNC4xNTcgNDQuNTk0M0MxMTcuNzE3IDQ0LjU5NDMgMTIwLjExOSA0Mi4yNDg1IDEyMC4xMTkgMzguODU4MVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTEyMy4yNTIgMzguODg2N0MxMjMuMjUyIDM0LjM5NDUgMTI2LjQxNyAzMS40ODQ1IDEzMS4xNjIgMzEuNDg0NUMxMzMuMTY5IDMxLjQ4NDUgMTM0Ljk0OCAzMS45NjQ5IDEzNi40NDYgMzIuOTgxOUwxMzUuNzM5IDM0LjQ3OTNDMTM0LjQxMiAzMy41NDcxIDEzMi44NTggMzMuMTIzIDEzMS4xOTEgMzMuMTIzQzEyNy41NDYgMzMuMTIzIDEyNS4xMTYgMzUuMzgzOSAxMjUuMTE2IDM4Ljg1ODFDMTI1LjExNiA0Mi4zNjIgMTI3LjU3NSA0NC41OTQzIDEzMS40MTcgNDQuNTk0M0MxMzMuMjI1IDQ0LjU5NDMgMTM0LjcyMiA0NC4wODUzIDEzNi4yMiA0My4wMTIxTDEzNi45ODIgNDQuNTA5NUMxMzUuMzE1IDQ1LjY5NjIgMTMzLjQ1MSA0Ni4yMzI4IDEzMS4zMDMgNDYuMjMyOEMxMjYuMzU5IDQ2LjIzMjggMTIzLjI1MiA0My4zMjI4IDEyMy4yNTIgMzguODg2N1oiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTEzOC41MzggMzEuODIzOEgxNDAuMzQ2VjQ1Ljg5MzVIMTM4LjUzOFYzMS44MjM4WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTU2LjIwMiAzNy43NTczVjQ1Ljg5MzVIMTU0LjM5NFY0Mi45ODM0QzE1Mi42NDIgNDUuMTAyMyAxNTAuMTU2IDQ2LjIzMjggMTQ3LjM4NyA0Ni4yMzI4QzE0NC4wNTMgNDYuMjMyOCAxNDEuOTkxIDQ0LjU2NTcgMTQxLjk5MSA0MS44NTNDMTQxLjk5MSAzOS4xMTI2IDE0NC4xMSAzNy41MDI4IDE0Ny43ODMgMzcuNTAyOEMxNTAuMDk5IDM3LjUwMjggMTUyLjUyOSAzOC4xNTE4IDE1NC4zOTQgMzkuMjUzN1YzNy45NTQ2QzE1NC4zOTQgMzQuNTkyOCAxNTIuNzgzIDMzLjEyMjkgMTQ5LjEzOCAzMy4xMjI5QzE0Ny4wMiAzMy4xMjI5IDE0NS4yMTEgMzMuNjAzMyAxNDMuNzE0IDM0LjY0OUwxNDIuOTUxIDMzLjIwNzhDMTQ0LjcwMyAzMi4wNDk3IDE0Ni43MzcgMzEuNDg0NSAxNDkuMjggMzEuNDg0NUMxNTQuMDI2IDMxLjQ4NDUgMTU2LjIwMiAzMy40MzM3IDE1Ni4yMDIgMzcuNzU3M1pNMTU0LjM5NCA0MC43MjM1QzE1Mi42NzEgMzkuNjQ5MyAxNTAuMzgyIDM5LjA1NjQgMTQ4LjEyMSAzOS4wNTY0QzE0NS4yOTYgMzkuMDU2NCAxNDMuODI3IDQwLjAxNzIgMTQzLjgyNyA0MS44MjU0QzE0My44MjcgNDMuNjA0OSAxNDUuMjQgNDQuNjIxOSAxNDcuNjcgNDQuNjIxOUMxNTAuMzI1IDQ0LjYyMTkgMTUyLjg0IDQzLjQzNTIgMTU0LjM5NCA0MS40NTc0VjQwLjcyMzVaIiBmaWxsPSIjMDA3RDY5Ii8+CjxwYXRoIGQ9Ik0xNzAuOTk3IDM5LjM5NThDMTcxLjIyMyA0Mi42NDQxIDE3My43MzcgNDQuNTk0MyAxNzcuNjY0IDQ0LjU5NDNDMTc5LjgxMiA0NC41OTQzIDE4MS41MzUgNDQuMDI5MSAxODMuMTQ2IDQyLjc1NzZMMTgzLjg4IDQ0LjIyNjRDMTgyLjE1NiA0NS41ODI3IDE4MC4wNjYgNDYuMjMyOCAxNzcuNTUyIDQ2LjIzMjhDMTcyLjM4MiA0Ni4yMzI4IDE2OS4xMzIgNDMuMzUwNCAxNjkuMTMyIDM4Ljg1ODFDMTY5LjEzMiAzNC40NTE3IDE3Mi4yNjggMzEuNDg0NSAxNzYuOTAyIDMxLjQ4NDVDMTgxLjUzNSAzMS40ODQ1IDE4NC42NDMgMzQuNDUxNyAxODQuNjQzIDM4Ljg1ODFWMzkuMzk1OEgxNzAuOTk3Wk0xNzEuMDI1IDM3Ljg2OTdIMTgyLjg2M0MxODIuNDQgMzQuOTg4MyAxODAuMTUxIDMzLjEyMyAxNzYuOTU4IDMzLjEyM0MxNzMuNzM3IDMzLjEyMyAxNzEuNDQ5IDM0Ljk4ODMgMTcxLjAyNSAzNy44Njk3WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTg1Ljc2MSA0NC4xMTM5TDE4Ni42MDggNDIuNjcyN0MxODguMzg5IDQzLjkxNTYgMTkwLjUzNSA0NC42MjE5IDE5My4xOTIgNDQuNjIxOUMxOTYuMzI3IDQ0LjYyMTkgMTk4LjE2MyA0My42NjExIDE5OC4xNjMgNDIuMDIyNkMxOTguMTYzIDQwLjQ2OSAxOTcuMDA1IDM5Ljk2IDE5Mi45MzcgMzkuNjc3OUMxODguMTA1IDM5LjMzODUgMTg2LjQxMSAzOC4yOTM5IDE4Ni40MTEgMzUuNjk0NkMxODYuNDExIDMzLjA5NTQgMTg4LjkyNSAzMS40ODQ1IDE5Mi44ODEgMzEuNDg0NUMxOTUuMzEgMzEuNDg0NSAxOTcuNDU3IDMyLjA0OTcgMTk5LjA5NiAzMy4yMDc4TDE5OC4zMzMgMzQuNjQ5QzE5Ni45NDkgMzMuNjMyIDE5NC45NzEgMzMuMDY2NyAxOTIuNzY3IDMzLjA2NjdDMTg5Ljk0MiAzMy4wNjY3IDE4OC4yNDggMzQuMDU2MiAxODguMjQ4IDM1LjYwOThDMTg4LjI0OCAzNy4xMzQ4IDE4OS40MDYgMzcuNjcyNSAxOTMuNTAyIDM3Ljk1NDZDMTk4LjI3NyAzOC4yOTM5IDIwMCAzOS4zMzg1IDIwMCA0MS45Mzc4QzIwMCA0NC42NzgxIDE5Ny41MTQgNDYuMjMyOCAxOTMuMTYzIDQ2LjIzMjhDMTkwLjE0IDQ2LjIzMjggMTg3LjYyNSA0NS40NDE3IDE4NS43NjEgNDQuMTEzOVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTE2OC4xNzggNDMuODMwOEMxNjcuMjc1IDQ0LjMzOTggMTY2LjI4NSA0NC41OTQzIDE2NS4xODMgNDQuNTk0M0MxNjMuMjYzIDQ0LjU5NDMgMTYyLjM1OCA0My43NzQ1IDE2Mi4zNTggNDEuOTEwM1YzMy4zMjEySDE2OC4zMTlWMzEuODIzOEgxNjIuMzU4VjI2Ljc0MTdMMTYwLjU1IDI3LjY2OFYzMS44MjM4SDE1Ni40MjZWMzMuMzIxMkgxNjAuNTVWNDIuMDc5OEMxNjAuNTUgNDQuODQ3OSAxNjIuMDc2IDQ2LjIzMjggMTY1LjA0MiA0Ni4yMzI4QzE2Ni40MjYgNDYuMjMyOCAxNjcuNjEzIDQ1Ljk0OTcgMTY4LjcxNSA0NS4zNTY5TDE2OC4xNzggNDMuODMwOFoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTkuMTIyNjMgMzMuMzY4NUM4LjE5MDUzIDM0LjMwMDQgOC4xOTA1MyAzNS44MTE1IDkuMTIyNjMgMzYuNzQzNkMxMC4wNTQ2IDM3LjY3NTcgMTEuNTY1OCAzNy42NzU3IDEyLjQ5NzggMzYuNzQzNkMxMy40Mjk5IDM1LjgxMTUgMTMuNDI5OSAzNC4zMDA0IDEyLjQ5NzggMzMuMzY4NUMxMS41NjU4IDMyLjQzNjQgMTAuMDU0NiAzMi40MzY0IDkuMTIyNjMgMzMuMzY4NVoiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zMzhfMTY0KSIvPgo8cGF0aCBkPSJNMzIuMDQ5OCAxMC4wNjYxSDM0Ljc3NzRDMzUuMzQxOSAxMC4wNjYxIDM1LjgwMDIgMTAuNTI0NCAzNS44MDAyIDExLjA4ODlWMTMuODE2NkMzNS44MDAyIDE0LjM4MTEgMzUuMzQxOSAxNC44Mzk0IDM0Ljc3NzQgMTQuODM5NEgzMi4wNDk3QzMxLjQ4NTIgMTQuODM5NCAzMS4wMjY5IDE0LjM4MTEgMzEuMDI2OSAxMy44MTY2VjExLjA4OUMzMS4wMjY5IDEwLjUyNDQgMzEuNDg1MiAxMC4wNjYxIDMyLjA0OTggMTAuMDY2MVoiIGZpbGw9InVybCgjcGFpbnQxX2xpbmVhcl8zMzhfMTY0KSIvPgo8cGF0aCBkPSJNNDEuMzY5MSAwLjUxOTM1OEgyNS40NTc5QzIzLjI2MSAwLjUxOTM1OCAyMS40ODAxIDIuMzAwMjQgMjEuNDgwMSA0LjQ5NzE2VjE4LjAyMTdDMjEuNDgwMSAyMC4yMTg0IDE5LjY5OTIgMjEuOTk5NSAxNy41MDIzIDIxLjk5OTVIMy45Nzc4QzEuNzgwODggMjEuOTk5NSAwIDIzLjc4MDQgMCAyNS45NzczVjQxLjg4ODVDMCA0NC4wODUyIDEuNzgwODggNDUuODY2MyAzLjk3NzggNDUuODY2M0gxOS44ODlDMjIuMDg1OCA0NS44NjYzIDIzLjg2NjggNDQuMDg1MiAyMy44NjY4IDQxLjg4ODVWMjguMzY0QzIzLjg2NjggMjYuMTY3MSAyNS42NDc3IDI0LjM4NjIgMjcuODQ0NiAyNC4zODYySDQxLjM2OTFDNDMuNTY2IDI0LjM4NjIgNDUuMzQ2OSAyMi42MDUxIDQ1LjM0NjkgMjAuNDA4NFY0LjQ5NzE2QzQ1LjM0NjkgMi4zMDAyNCA0My41NjYgMC41MTkzNTggNDEuMzY5MSAwLjUxOTM1OFpNMTguMTk4OCAyOC4xMzRDMTcuODM0OCAzMC4xMzg2IDE2LjQ5NDMgMzYuODg0IDE0LjYzNTYgMzguNzQxMkMxMi41NTkyIDQwLjgxNiA5LjE5Mjc0IDQwLjgxNiA3LjExNjI1IDM4Ljc0MTJDNS4wMzk4NSAzNi42NjY1IDUuMDY2MzYgMzMuMjc2IDcuMTE2MjUgMzEuMjI3N0M4Ljg4Mjc2IDI5LjQ2MjcgMTUuNzE0IDI4LjA1NjMgMTcuNzMyOSAyNy42NzIzQzE4LjAwNzYgMjcuNjIwMSAxOC4yNDg4IDI3Ljg1ODggMTguMTk4OCAyOC4xMzRaTTM5Ljk3NjkgMTcuMDg1N0MzOS45NzY5IDE4LjE1MTggMzkuMTEyNiAxOS4wMTYxIDM4LjA0NjUgMTkuMDE2MUgyOC43ODA1QzI3LjcxNDQgMTkuMDE2MSAyNi44NTAyIDE4LjE1MTggMjYuODUwMiAxNy4wODU3VjcuODE5ODNDMjYuODUwMiA2Ljc1MzcxIDI3LjcxNDQgNS44ODkzOSAyOC43ODA1IDUuODg5MzlIMzguMDQ2NUMzOS4xMTI2IDUuODg5MzkgMzkuOTc2OSA2Ljc1MzcxIDM5Ljk3NjkgNy44MTk4M1YxNy4wODU3WiIgZmlsbD0idXJsKCNwYWludDJfbGluZWFyXzMzOF8xNjQpIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMzM4XzE2NCIgeDE9IjE2MjcuNTEiIHkxPSItMzExLjQ5OSIgeDI9IjE0MjIuODMiIHkyPSI1MjcuNTEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agb2Zmc2V0PSIwLjAwMTIxIiBzdG9wLWNvbG9yPSIjNkVDMzRCIi8+CjxzdG9wIG9mZnNldD0iMC45OTc1OCIgc3RvcC1jb2xvcj0iIzE5OENDMyIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MV9saW5lYXJfMzM4XzE2NCIgeDE9IjY1NS42NzciIHkxPSItOTguNjA4IiB4Mj0iNDUxLjAxMiIgeTI9Ijc0MC4zODYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agb2Zmc2V0PSIwLjAwMTIxIiBzdG9wLWNvbG9yPSIjNkVDMzRCIi8+CjxzdG9wIG9mZnNldD0iMC45OTc1OCIgc3RvcC1jb2xvcj0iIzE5OENDMyIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50Ml9saW5lYXJfMzM4XzE2NCIgeDE9IjQ3LjE1NjgiIHkxPSItMC4wMDgwNjY5NCIgeDI9IjEuMzM0MjkiIHkyPSI0My40MTQyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMC4wNTY2OSIgc3RvcC1jb2xvcj0iIzZFQzM0QiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxOThDQzMiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K");
 const SCOPES = ["User.Read", "Files.ReadWrite.All"];
 const GRAPH = "https://graph.microsoft.com/v1.0";
-const CEO_TABLES = ["Tasks", "Ventures"];
+const CEO_TABLES = ["Tasks", "Ventures", "Subtasks"];
 const KC_TABLES = ["Tasks", "Subtasks", "Partners"];
 const SCHEMA = {
   Tasks: ["TaskID","Venture","Title","NextStep","Why","Type","Priority","Status","DueDate","WaitingOn","Notes","SourceRef","Source","CreatedBy","CreatedAt","UpdatedBy","UpdatedAt","CompletedAt","AgentSyncedAt"],
+  Subtasks: ["SubtaskID","TaskID","Order","Title","Owner","DueDate","Status","UpdatedBy","UpdatedAt","CompletedAt"],
   Ventures: ["Key","Name","Prefix","ColorHex","Order","Link","DriveId","ItemId","DashboardURL","Active"],
   ActivityLog: ["Timestamp","User","Action","TaskID","Details"]
 };
@@ -483,7 +486,8 @@ class GraphStore {
     });
   }
   async readAll(){
-    const res = await Promise.all(this.tables.map(n => this.readTable(n)));
+    /* A table that does not exist yet (older workbook) reads as empty instead of failing the page. */
+    const res = await Promise.all(this.tables.map(n => this.readTable(n).catch(e => { if (e.status === 404 && n !== "Tasks") return []; throw e; })));
     const out = {}; this.tables.forEach((n,i) => out[n] = res[i].filter(r => !r._blank)); return out;
   }
   async readRow(table, id){ return (await this.readTable(table)).find(r => r[KEYS[table]] === id) || null; }
@@ -698,7 +702,7 @@ function buildItems(){
       }
     } else {
       for (const t of (S.data.Tasks || [])) if (t.Venture === v.Key)
-        out.push({key:`ceo:${t.TaskID}`, kind:"local", v, id:t.TaskID, title:t.Title, status:t.Status || "Not started", due:t.DueDate, pri:t.Priority || "P2", type:t.Type,
+        out.push({key:`ceo:${t.TaskID}`, kind:"local", v, subs:(S.data.Subtasks || []).filter(s => s.TaskID === t.TaskID).sort((a,b) => (+a.Order||0) - (+b.Order||0)), id:t.TaskID, title:t.Title, status:t.Status || "Not started", due:t.DueDate, pri:t.Priority || "P2", type:t.Type,
           next:t.NextStep, why:t.Why, waiting:t.WaitingOn, notes:t.Notes, ref:t.SourceRef, source:t.Source, completedAt:t.CompletedAt, updatedAt:t.UpdatedAt || t.CreatedAt, row:t});
     }
   }
@@ -852,7 +856,7 @@ function renderCard(it){
   const open = isOpen(it), on = it.status === "Done";
   const circle = `<button class="circle ${it.kind === "kcsub" ? "sq" : ""} ${on ? "on" : ""}" data-done="${esc(it.key)}" ${canDone(it) ? "" : "disabled"} aria-label="${on ? "Reopen" : "Mark done"}: ${esc(it.title)}">${ICON.check}</button>`;
   const st = it.kind === "kcsub" ? "" : `<button class="st ${stClass(it.status)}" data-status="${esc(it.key)}" ${canDone(it) ? "" : "disabled"} aria-haspopup="menu">${esc(it.status)}${canDone(it) ? ICON.caret : ""}</button>`;
-  const prog = it.kind === "kc" && it.subs.length ? (() => { const d = it.subs.filter(s => s.Status === "Done").length; return `<span>${d} of ${it.subs.length} sub-tasks</span><span class="bar"><i style="width:${Math.round(d/it.subs.length*100)}%"></i></span>`; })() : "";
+  const prog = it.subs?.length ? (() => { const d = it.subs.filter(s => s.Status === "Done").length; return `<span>${d} of ${it.subs.length} sub-tasks</span><span class="bar"><i style="width:${Math.round(d/it.subs.length*100)}%"></i></span>`; })() : "";
   return `<article class="card ${isOverdue(it) ? "od" : ""} ${open ? "" : "closed"}">
     ${circle}<button class="t" data-open="${esc(it.key)}" ${st ? "" : 'style="grid-column:2/-1"'}>${esc(it.title)}</button>${st}
     <div class="meta">${dueHTML(it)}<span class="pri ${esc(it.pri)}" title="Priority ${esc(PRI_NAME[it.pri]||it.pri)}">${esc(it.pri)}</span>${it.kind === "local" && it.type ? `<span class="tag">${esc(it.type)}</span>` : ""}${prog}<span class="id">${esc(it.id)}</span>${!open && it.completedAt ? `<span>Closed ${fmtShort(it.completedAt.slice(0,10))}</span>` : ""}</div>
@@ -1018,6 +1022,10 @@ async function saveLocal(it, changes, action){
     else if (changes.Status === "Dropped") rec.CompletedAt = stamp;
     await S.ceo.session(async () => {
       await S.ceo.patch("Tasks", rec);
+      if (changes.Status === "Done"){
+        const open = (await S.ceo.readTable("Subtasks").catch(() => [])).filter(s => s.TaskID === it.id && s.Status !== "Done");
+        if (open.length) await S.ceo.patchMany("Subtasks", open.map(s => ({...s, Status:"Done", CompletedAt:stamp, UpdatedBy:rec.UpdatedBy, UpdatedAt:stamp})));
+      }
       await S.ceo.add("ActivityLog", [logRow(rec.UpdatedBy, action, it.id, Object.entries(changes).map(([k,v]) => `${k}: "${String(fresh[k]||"").slice(0,50)}" to "${String(v).slice(0,50)}"`).join("; "))]);
     });
     return true;
@@ -1051,6 +1059,16 @@ async function saveKC(it, changes, action){
 }
 
 async function toggleSub(it, checked){
+  if (it.kind === "localsub") return guarded(async () => {
+    const fresh = await S.ceo.readRow("Subtasks", it.id);
+    if (!fresh) throw new GraphError(404, "rowNotFound", `${it.id} is no longer in the workbook. Refresh and try again.`);
+    const stamp = nowStamp(), me = S.me.name || S.me.email || "Me";
+    await S.ceo.session(async () => {
+      await S.ceo.patch("Subtasks", {...fresh, Status: checked ? "Done" : "Not started", CompletedAt: checked ? stamp : "", UpdatedBy: me, UpdatedAt: stamp});
+      await S.ceo.add("ActivityLog", [logRow(me, checked ? "Sub-task done" : "Sub-task reopened", fresh.TaskID, `${it.id} ${fresh.Title}`)]);
+    });
+    return true;
+  });
   const L = it.L;
   return guarded(async () => {
     const fresh = await L.store.readRow("Subtasks", it.id);
@@ -1069,7 +1087,7 @@ function confirmKCDone(it){
   return new Promise(resolve => {
     const open = it.subs.filter(s => s.Status !== "Done"), dlg = $("#dlg");
     dlg.innerHTML = `<div class="dlg-in"><h2>Mark ${esc(it.id)} done?</h2><p style="margin:0;color:var(--text-2)">"${esc(it.title)}"</p>
-      ${open.length ? `<p style="margin:12px 0 0">This also closes ${open.length === 1 ? "the 1 open sub-task" : `all ${open.length} open sub-tasks`} on the ${esc(it.v.Name)} dashboard:</p><ul class="subs" style="margin-top:8px">${open.map(s => `<li><span class="tt">${esc(s.Title)}</span><span class="own">${esc(s.Owner)}</span></li>`).join("")}</ul>` : `<p class="note">All sub-tasks are already done.</p>`}
+      ${open.length ? `<p style="margin:12px 0 0">This also closes ${open.length === 1 ? "the 1 open sub-task" : `all ${open.length} open sub-tasks`} ${it.kind === "kc" ? ` on the ${esc(it.v.Name)} dashboard` : ""}:</p><ul class="subs" style="margin-top:8px">${open.map(s => `<li><span class="tt">${esc(s.Title)}</span><span class="own">${esc(s.Owner || "")}</span></li>`).join("")}</ul>` : `<p class="note">All sub-tasks are already done.</p>`}
       <label class="confirm-chk"><input type="checkbox" id="doneOk"> <span>I confirm everything on this task is done${open.length ? " or no longer needed" : ""}.</span></label>
       <div class="dlg-actions"><button type="button" class="btn" data-c="0">Cancel</button><button type="button" class="btn primary" data-c="1" disabled>Mark done</button></div></div>`;
     const okBtn = dlg.querySelector('[data-c="1"]'); dlg.querySelector("#doneOk").onchange = e => okBtn.disabled = !e.target.checked;
@@ -1098,10 +1116,12 @@ async function setStatus(it, status, opts={}){
   if (it.kind === "local"){
     const ch = {Status: status};
     if (status === "Waiting"){ const r = await askReason(it, "Waiting"); if (r === null) return; ch.WaitingOn = r; }
+    const openSubs = (it.subs || []).filter(s => s.Status !== "Done").length;
+    if (status === "Done" && openSubs && !(await confirmKCDone(it))) return;
     const prev = it.status;
     if (await saveLocal(it, ch, status === "Done" ? "Marked done" : "Updated")){
       await refresh();
-      toast(status === "Done" ? `${it.id} done.` : `${it.id} set to ${status}.`, opts.noUndo ? null : {label:"Undo", fn: async () => { const cur = buildItems().find(x => x.key === it.key); if (cur) await setStatus(cur, prev, {noUndo:true}); }});
+      toast(status === "Done" ? `${it.id} done.` : `${it.id} set to ${status}.`, opts.noUndo || (status === "Done" && openSubs) ? null : {label:"Undo", fn: async () => { const cur = buildItems().find(x => x.key === it.key); if (cur) await setStatus(cur, prev, {noUndo:true}); }});
       if (opts.reopen) openTask(it.key);
     }
   } else if (it.kind === "kc"){
@@ -1154,6 +1174,8 @@ function openTask(key){
       ${it.kind === "kc" && it.desc ? `<div class="fld"><span>Description</span><div class="ro">${esc(it.desc)}</div></div>` : ""}
       <label class="fld"><span>Notes</span><textarea class="inp" name="Notes" rows="3" placeholder="${it.kind === "local" && v.Key === "adroit" ? "The CEO agent reads this on its next run" : "Your notes"}">${esc(it.notes||"")}</textarea></label>
       ${it.kind === "kc" ? `<div class="fld"><span>Sub-tasks</span>${it.subs.length ? subList(it.subs, it.L) : `<div class="note">No sub-tasks yet.</div>`}</div>` : ""}
+      ${it.kind === "local" ? `<div class="fld"><span>Sub-tasks${it.subs.length ? ` (${it.subs.filter(s => s.Status === "Done").length} of ${it.subs.length} done)` : ""}</span>${it.subs.length ? subList(it.subs, null) : `<div class="note">No sub-tasks. Add only the steps that matter.</div>`}
+        ${CLOSED.has(it.status) ? "" : `<div class="addsub"><input class="inp" id="as-title" placeholder="Add a sub-task, starting with a verb"><input class="inp" type="date" id="as-due" min="${todayISO()}" ${it.due ? `max="${esc(it.due)}"` : ""} aria-label="Sub-task due date"><button type="button" class="btn small" id="as-add">Add</button></div>`}</div>` : ""}
       ${it.why ? `<div class="ro"><b>Why it matters:</b> ${esc(it.why)}</div>` : ""}
       <div class="note">${[it.type ? esc(it.type) : "", it.ref ? `Linked record ${esc(it.ref)}` : "", it.source ? `Source: ${esc(it.source)}` : "", it.row.UpdatedAt ? `Last updated ${esc(fmtStamp(it.row.UpdatedAt))}${it.row.UpdatedBy ? ` by ${esc(it.row.UpdatedBy)}` : ""}` : ""].filter(Boolean).join(" · ")}</div>`;
   }
@@ -1166,17 +1188,45 @@ function openTask(key){
   const f = $("#taskForm");
   f.Status?.addEventListener("change", () => { $("#waitFld").hidden = !WAITS.has(f.Status.value); });
   sheet.querySelectorAll("input[data-sub]").forEach(cb => cb.onchange = async () => {
-    const sub = buildItems().find(x => x.key === `${v.Key}:${cb.dataset.sub}`) || {kind:"kcsub", v, L:it.L, id:cb.dataset.sub};
+    const sub = it.kind === "local" ? {kind:"localsub", v, id:cb.dataset.sub} : (buildItems().find(x => x.key === `${v.Key}:${cb.dataset.sub}`) || {kind:"kcsub", v, L:it.L, id:cb.dataset.sub});
     cb.disabled = true;
     if (await toggleSub(sub, cb.checked)){ await refresh(); toast(`${cb.dataset.sub} ${cb.checked ? "ticked" : "reopened"}.`); openTask(key); } else cb.checked = !cb.checked;
     cb.disabled = false;
   });
+  const asBtn = sheet.querySelector("#as-add"), asTitle = sheet.querySelector("#as-title");
+  if (asBtn){ asBtn.onclick = () => addLocalSub(it); asTitle.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); addLocalSub(it); } }; }
   f.onsubmit = async e => { e.preventDefault(); await saveSheet(it, f); };
   sheet.showModal();
 }
+/* L is the linked venture (only its owner may tick), or null for your own tasks (you can tick any). */
 function subList(subs, L){
-  return `<ul class="subs">${subs.map(s => `<li class="${s.Status === "Done" ? "done" : ""}"><input type="checkbox" data-sub="${esc(s.SubtaskID)}" ${s.Status === "Done" ? "checked" : ""} ${s.Owner === L.me ? "" : "disabled"} aria-label="${esc(s.Title)}">
-    <span class="tt">${esc(s.Title)}</span><span class="own">${esc(s.Owner === L.me ? "You" : s.Owner)}${s.DueDate ? `, ${fmtShort(s.DueDate)}` : ""}</span></li>`).join("")}</ul>`;
+  const mine = s => !L || s.Owner === L.me;
+  return `<ul class="subs">${subs.map(s => { const who = L ? (s.Owner === L.me ? "You" : s.Owner) : (s.Owner || ""); const od = s.Status !== "Done" && s.DueDate && s.DueDate < todayISO();
+    return `<li class="${s.Status === "Done" ? "done" : ""}"><input type="checkbox" data-sub="${esc(s.SubtaskID)}" ${s.Status === "Done" ? "checked" : ""} ${mine(s) ? "" : "disabled"} aria-label="${esc(s.Title)}">
+    <span class="tt">${esc(s.Title)}</span><span class="own" ${od ? 'style="color:var(--danger);font-weight:700"' : ""}>${esc([who, s.DueDate ? fmtShort(s.DueDate) : ""].filter(Boolean).join(", "))}</span></li>`; }).join("")}</ul>`;
+}
+async function addLocalSub(it){
+  const sheet = $("#sheet"), titleEl = sheet.querySelector("#as-title"), dueEl = sheet.querySelector("#as-due"), btn = sheet.querySelector("#as-add");
+  const title = clean(titleEl.value), due = dueEl.value;
+  if (!title){ titleEl.focus(); return; }
+  if (due && due < todayISO()){ toast("The due date is before today."); return; }
+  if (due && it.due && due > it.due){ toast("A sub-task cannot be due after its task."); return; }
+  btn.disabled = true; let newId = null;
+  const ok = await guarded(async () => {
+    await S.ceo.session(async () => {
+      const mine = (await S.ceo.readTable("Subtasks")).filter(s => s.TaskID === it.id);
+      if (mine.length >= 8) throw new Error("Keep it to 8 sub-tasks or fewer.");
+      const n = Math.max(0, ...mine.map(s => +s.Order || 0), ...mine.map(s => +((s.SubtaskID||"").match(/-(\d+)$/)||[0,0])[1])) + 1;
+      newId = `${it.id}-${pad(n)}`;
+      const stamp = nowStamp(), me = S.me.name || S.me.email || "Me";
+      await S.ceo.add("Subtasks", [{SubtaskID:newId, TaskID:it.id, Order:n, Title:title, Owner:"", DueDate:due, Status:"Not started", UpdatedBy:me, UpdatedAt:stamp, CompletedAt:""}]);
+      await S.ceo.add("ActivityLog", [logRow(me, "Sub-task added", it.id, `${newId} ${title}`)]);
+    });
+    return true;
+  });
+  await refresh();
+  if (ok){ toast(`${newId} added.`); openTask(it.key); $("#sheet").querySelector("#as-title")?.focus(); }
+  else if (btn.isConnected) btn.disabled = false;
 }
 async function saveSheet(it, f){
   const val = n => f[n] ? clean(f[n].value) : undefined;
@@ -1221,6 +1271,7 @@ function openAddForm(){
         <label class="fld" id="domFld"><span>Area</span><select class="inp" name="Domain"></select></label>
       </div>
       <label class="fld" id="nextFld"><span>Next step</span><textarea class="inp" name="NextStep" rows="2" placeholder="Optional"></textarea></label>
+      <label class="fld" id="subsFld"><span>Sub-tasks (optional, one per line)</span><textarea class="inp" name="Subs" rows="3" placeholder="Only the steps that matter, for example:&#10;Collect the three quotes&#10;Send the comparison to the partner"></textarea></label>
       <label class="fld"><span>Notes</span><textarea class="inp" name="Notes" rows="2" placeholder="Optional"></textarea></label>
       <p class="note" id="addNote"></p>
       <div class="dlg-actions"><button type="button" class="btn" data-x>Cancel</button><button type="submit" class="btn primary">Add task</button></div>
@@ -1228,7 +1279,7 @@ function openAddForm(){
   const f = $("#addForm");
   const sync = () => {
     const v = ventureByKey(f.Venture.value), linked = !!v?.Link;
-    $("#domFld").hidden = !linked; $("#nextFld").hidden = linked;
+    $("#domFld").hidden = !linked; $("#nextFld").hidden = linked; $("#subsFld").hidden = linked;
     if (linked){ const doms = [...new Set((S.links[v.Key]?.data?.Tasks || []).map(t => t.Domain).filter(Boolean))].sort(); f.Domain.innerHTML = doms.map(d => `<option>${esc(d)}</option>`).join(""); }
     $("#addNote").textContent = linked ? `Added to the ${v.Name} dashboard with you as lead and marked "Needs sub-tasks", so its agent writes the sub-tasks.` : v?.Key === "adroit" ? "The CEO agent picks this up on its next run and adds it to its action list." : "";
   };
@@ -1267,7 +1318,9 @@ async function createTask(f){
         const me = S.me.name || S.me.email || "Me";
         await S.ceo.add("Tasks", [{TaskID:newId, Venture:v.Key, Title:title, NextStep:clean(f.NextStep.value), Why:"", Type:"", Priority:f.Priority.value, Status:"Not started", DueDate:due,
           WaitingOn:"", Notes:clean(f.Notes.value), SourceRef:"", Source:"CEO Tasks tracker", CreatedBy:me, CreatedAt:stamp, UpdatedBy:me, UpdatedAt:stamp, CompletedAt:"", AgentSyncedAt:""}]);
-        await S.ceo.add("ActivityLog", [logRow(me, "Task added", newId, title)]);
+        const subs = (f.Subs?.value || "").split("\n").map(clean).filter(Boolean).slice(0, 8);
+        if (subs.length) await S.ceo.add("Subtasks", subs.map((t, i) => ({SubtaskID:`${newId}-${pad(i+1)}`, TaskID:newId, Order:i+1, Title:t, Owner:"", DueDate:"", Status:"Not started", UpdatedBy:me, UpdatedAt:stamp, CompletedAt:""})));
+        await S.ceo.add("ActivityLog", [logRow(me, "Task added", newId, `${title}${subs.length ? ` | ${subs.length} sub-tasks` : ""}`)]);
       });
       return true;
     });
