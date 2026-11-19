@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1F4F54">
+<title>CEO Tasks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Adroit palette: Forest #357B6A, Spring #82C05C, Cobalt #408BBE, Teal #1F4F54. Neutrals are implementation choices. */
+:root{
+  --forest:#357B6A; --spring:#82C05C; --cobalt:#408BBE; --teal:#1F4F54;
+  --bg:#EEF6F2; --surface:#FFFFFF; --surface-2:#F8FBF9; --sunk:#E9F0ED; --line:#DCE5E1; --line-2:#C5D3CE;
+  --text:#122220; --text-2:#4A5D59; --text-3:#6E817D;
+  --accent:#357B6A; --accent-hover:#2C6959; --accent-ink:#FFFFFF; --head:#1F4F54; --link:#2F6E9C;
+  --danger:#B3261E; --danger-bg:#FBEAE8; --warn:#8A5A00; --warn-bg:#FCF1D8;
+  --prog:#2C6C99; --prog-bg:#E4EFF8; --done:#2B6A5A; --done-bg:#E2F1EA; --muted-bg:#EDF1EF;
+  --shadow:0 1px 2px rgba(18,34,32,.05),0 6px 20px rgba(18,34,32,.06);
+  --radius:16px; --font-d:"Red Hat Display",system-ui,sans-serif; --font-b:"Gill Sans MT","Gill Sans","Red Hat Text",system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1413; --surface:#12201E; --surface-2:#162624; --sunk:#0E1918; --line:#233532; --line-2:#335048;
+    --text:#E5EEEC; --text-2:#A2B5B1; --text-3:#7D928E;
+    --accent:#4E9C88; --accent-hover:#5BAE98; --accent-ink:#06120F; --head:#CFE6E0; --link:#86BEE6;
+    --danger:#F28B82; --danger-bg:#3A1C1A; --warn:#EFC56B; --warn-bg:#33290F;
+    --prog:#8CC2EA; --prog-bg:#152A3B; --done:#86D0B0; --done-bg:#13302A; --muted-bg:#1B2A28;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1413; --surface:#12201E; --surface-2:#162624; --sunk:#0E1918; --line:#233532; --line-2:#335048;
+  --text:#E5EEEC; --text-2:#A2B5B1; --text-3:#7D928E;
+  --accent:#4E9C88; --accent-hover:#5BAE98; --accent-ink:#06120F; --head:#CFE6E0; --link:#86BEE6;
+  --danger:#F28B82; --danger-bg:#3A1C1A; --warn:#EFC56B; --warn-bg:#33290F;
+  --prog:#8CC2EA; --prog-bg:#152A3B; --done:#86D0B0; --done-bg:#13302A; --muted-bg:#1B2A28;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark;
+}
+/* Venture accent: dark brand colors (Teal) are lifted in dark mode so they stay visible. */
+[style*="--vc"]{--vca:var(--vc)}
+:root[data-theme="dark"] [style*="--vc"]{--vca:color-mix(in srgb,var(--vc) 62%,#fff)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) [style*="--vc"]{--vca:color-mix(in srgb,var(--vc) 62%,#fff)} }
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.45 var(--font-b);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px;border-radius:8px}
+h1,h2,h3,.disp{font-family:var(--font-d)}
+a{color:var(--link)}
+.wrap{max-width:1680px;margin:0 auto;padding:0 24px}
+[hidden]{display:none!important}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.plate{background:#fff;border-radius:10px;padding:7px 10px;display:flex;align-items:center;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.plate img{height:26px;width:auto;display:block}
+.bt{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.bt b{font-family:var(--font-d);font-weight:800;font-size:17px;color:var(--head);letter-spacing:.2px}
+.bt span{font-size:12.5px;color:var(--text-3);white-space:nowrap}
+.search{flex:1;max-width:420px;margin-left:auto;position:relative}
+.search input{width:100%;height:40px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface-2);padding:0 14px 0 38px}
+.search svg{position:absolute;left:13px;top:11px;width:18px;height:18px;color:var(--text-3)}
+.sync{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-3);white-space:nowrap}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--spring)}
+.sync.busy i{background:var(--cobalt);animation:pulse 1s infinite}
+.sync.off i{background:var(--danger)}
+@keyframes pulse{50%{opacity:.35}}
+.btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-family:var(--font-d);font-weight:700;font-size:14px;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.small{height:32px;padding:0 12px;font-size:13px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);display:grid;place-items:center;padding:0}
+.icon-btn svg{width:18px;height:18px}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-family:var(--font-d);font-weight:800;font-size:13px;border:0}
+
+/* banners */
+.banner{margin:16px 0 0;padding:10px 14px;border-radius:12px;background:var(--warn-bg);color:var(--warn);font-size:14px}
+.banner.err{background:var(--danger-bg);color:var(--danger)}
+.banner b{font-family:var(--font-d)}
+
+/* at a glance */
+.glance{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.glance-h{display:flex;align-items:baseline;gap:12px;padding:16px 20px 6px}
+.glance-h h2{margin:0;font-size:20px;font-weight:800;color:var(--head)}
+.glance-h span{color:var(--text-3);font-size:13px}
+.tbl-wrap{overflow-x:auto}
+table.gl{width:100%;border-collapse:collapse;min-width:640px}
+.gl th{font:700 11.5px var(--font-d);letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);text-align:center;padding:10px 12px;border-bottom:1px solid var(--line)}
+.gl th:first-child{text-align:left;padding-left:20px}
+.gl td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:center}
+.gl td:first-child{text-align:left;padding-left:20px}
+.gl tr:last-child td{border-bottom:0}
+.gl tr.total td{background:var(--surface-2)}
+.vn{display:flex;align-items:center;gap:12px}
+.vdot{width:12px;height:12px;border-radius:4px;background:var(--vca);flex:none}
+.vn b{font-family:var(--font-d);font-weight:700;font-size:15px}
+.vn small{display:block;color:var(--text-3);font-size:12px}
+.num{font:800 22px var(--font-d);background:none;border:0;padding:2px 8px;border-radius:8px;min-width:44px}
+.num:hover{background:var(--sunk)}
+.num.zero{color:var(--text-3);font-weight:600}
+.num.red{color:var(--danger)}
+.num.blue{color:var(--prog)}
+.num.amber{color:var(--warn)}
+.num.green{color:var(--done)}
+.mix{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--muted-bg);min-width:120px}
+.mix i{display:block;height:100%}
+.mix .m-od{background:var(--danger)} .mix .m-wk{background:var(--cobalt)} .mix .m-wt{background:#C9A13B} .mix .m-lt{background:var(--line-2)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:8px 20px 14px;font-size:12.5px;color:var(--text-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* toolbar */
+.toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 12px}
+.tabs{display:flex;gap:4px;padding:4px;background:var(--sunk);border-radius:999px;flex-wrap:wrap}
+.tab{border:0;background:transparent;height:34px;padding:0 14px;border-radius:999px;font:700 14px var(--font-d);color:var(--text-2);display:inline-flex;align-items:center;gap:7px}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.tab .c{font-size:12px;font-weight:700;color:var(--text-3)}
+.tab .c.red{background:var(--danger);color:#fff;border-radius:999px;padding:0 7px;line-height:18px}
+.tools{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.sel{height:34px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);padding:0 12px;font:600 13px var(--font-d)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.chips .lbl{font:700 11.5px var(--font-d);letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);margin-right:4px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font:600 14px var(--font-d)}
+.chip[aria-pressed="true"]{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
+.chip .vdot{width:10px;height:10px;border-radius:3px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:16px}
+
+/* board */
+.board{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));align-items:start;padding-bottom:60px}
+.board.single{grid-template-columns:1fr}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border-top:5px solid var(--vca)}
+.col-h{display:flex;align-items:center;gap:10px;padding:14px 16px 10px}
+.col-h h3{margin:0;font-size:17px;font-weight:800}
+.col-h .cnt{margin-left:auto;font:700 13px var(--font-d);color:var(--text-2)}
+.col-sub{padding:0 16px 10px;font-size:12.5px;color:var(--text-3);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.col-sub a{font-weight:600;text-decoration:none}
+.col-sub a:hover{text-decoration:underline}
+.sec{font:700 11.5px var(--font-d);letter-spacing:.07em;text-transform:uppercase;color:var(--text-3);padding:12px 16px 6px;display:flex;justify-content:space-between;border-top:1px solid var(--line)}
+.list{padding:4px 10px 12px;display:grid;gap:8px}
+.board.single .list{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
+.empty{padding:14px 16px 18px;color:var(--text-3);font-size:14px}
+.more{margin:0 10px 12px;width:calc(100% - 20px);justify-content:center}
+
+/* card */
+.card{display:grid;grid-template-columns:26px 1fr auto;gap:4px 10px;padding:12px 12px 11px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);position:relative}
+.card:hover{border-color:var(--line-2)}
+.card.od{border-left:3px solid var(--danger);padding-left:10px}
+.card.closed .t{color:var(--text-3);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.circle{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-2);background:transparent;padding:0;margin-top:1px;display:grid;place-items:center;color:transparent}
+.circle:hover{border-color:var(--accent);color:var(--accent)}
+.circle.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.circle.sq{border-radius:6px}
+.circle svg{width:13px;height:13px}
+.circle[disabled]{border-style:dashed;cursor:not-allowed;opacity:.6}
+.t{border:0;background:none;padding:0;text-align:left;font:700 14.5px/1.35 var(--font-d);color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t:hover{color:var(--accent)}
+.meta{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:12.5px;color:var(--text-2)}
+.due{display:inline-flex;align-items:center;gap:5px}
+.due svg{width:13px;height:13px}
+.due.od{color:var(--danger);font-weight:700}
+.due.soon{color:var(--prog);font-weight:600}
+.pri{font:800 11px var(--font-d);padding:1px 7px;border-radius:6px;background:var(--muted-bg);color:var(--text-2)}
+.pri.P1{background:var(--danger-bg);color:var(--danger)}
+.tag{font:700 10.5px var(--font-d);letter-spacing:.05em;color:var(--text-3);text-transform:uppercase}
+.id{font:600 11.5px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--text-3)}
+.next,.wait,.par{grid-column:2/-1;margin:2px 0 0;font-size:13px;color:var(--text-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.next b,.wait b,.par b{font-family:var(--font-d);font-weight:700;color:var(--text-2)}
+.wait{color:var(--warn)} .wait b{color:var(--warn)}
+.st{height:26px;padding:0 9px 0 10px;border-radius:999px;border:0;font:700 12px var(--font-d);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;background:var(--muted-bg);color:var(--text-2);align-self:start}
+.st svg{width:11px;height:11px}
+.st[disabled]{cursor:default}
+.s-inprogress{background:var(--prog-bg);color:var(--prog)}
+.s-waiting,.s-blocked{background:var(--warn-bg);color:var(--warn)}
+.s-done{background:var(--done-bg);color:var(--done)}
+.s-toconfirm{background:color-mix(in srgb,var(--spring) 22%,transparent);color:var(--done)}
+.s-dropped{background:var(--muted-bg);color:var(--text-3)}
+.bar{height:5px;border-radius:99px;background:var(--muted-bg);overflow:hidden;width:70px;display:inline-block;vertical-align:middle}
+.bar i{display:block;height:100%;background:var(--accent)}
+
+/* menu, toast, dialogs */
+.menu{position:fixed;z-index:60;background:var(--surface);border:1px solid var(--line-2);border-radius:12px;box-shadow:var(--shadow);padding:6px;min-width:170px;display:none}
+.menu.open{display:block}
+.menu button{display:flex;width:100%;align-items:center;gap:8px;border:0;background:none;padding:8px 10px;border-radius:8px;text-align:left;font:600 14px var(--font-d)}
+.menu button:hover,.menu button:focus-visible{background:var(--sunk)}
+.menu button[aria-checked="true"]::after{content:"\2713";margin-left:auto;color:var(--accent)}
+.menu .sw{width:10px;height:10px;border-radius:50%}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;transition:.2s;z-index:70;background:var(--teal);color:#fff;padding:10px 14px 10px 18px;border-radius:12px;display:flex;gap:12px;align-items:center;font-size:14px;box-shadow:var(--shadow);max-width:calc(100vw - 32px)}
+#toast.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
+#toast button{background:rgba(255,255,255,.16);border:0;color:#fff;border-radius:8px;padding:5px 10px;font:700 13px var(--font-d)}
+dialog{border:0;border-radius:18px;padding:0;background:var(--surface);color:var(--text);box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(640px,calc(100vw - 24px));max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(8,20,18,.45)}
+.dlg-in{padding:22px 24px}
+.dlg-in h2{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--head)}
+.dlg-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
+.sheet-h{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:1}
+.sheet-h .vchip{display:inline-flex;align-items:center;gap:7px;font:700 13px var(--font-d)}
+.sheet-h .x{margin-left:auto}
+.sheet-b{padding:16px 20px 20px;display:grid;gap:14px}
+.fld{display:grid;gap:5px}
+.fld>span{font:700 12px var(--font-d);letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.inp,textarea.inp,select.inp{width:100%;border:1px solid var(--line-2);border-radius:10px;background:var(--surface-2);padding:9px 11px;min-height:40px}
+textarea.inp{resize:vertical;min-height:70px}
+textarea.inp.title{font:700 16px/1.35 var(--font-d);min-height:60px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ro{background:var(--sunk);border-radius:10px;padding:10px 12px;font-size:13.5px;color:var(--text-2)}
+.ro b{font-family:var(--font-d);color:var(--text)}
+.subs{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.subs li{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--line);font-size:14px}
+.subs li.done span.tt{color:var(--text-3);text-decoration:line-through}
+.subs .own{margin-left:auto;font-size:12px;color:var(--text-3);white-space:nowrap}
+.confirm-chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:14px}
+.note{font-size:13px;color:var(--text-3)}
+
+/* calendar */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:60px;overflow:hidden}
+.cal-h{display:flex;align-items:center;gap:10px;padding:14px 16px}
+.cal-h h3{margin:0;font-size:18px;font-weight:800;color:var(--head)}
+.cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line)}
+.cal-g .dn{font:700 11px var(--font-d);text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);padding:8px;border-bottom:1px solid var(--line)}
+.day{min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.day:nth-child(7n){border-right:0}
+.day .d{font:700 12px var(--font-d);color:var(--text-3)}
+.day.today .d{color:#fff;background:var(--accent);border-radius:99px;padding:0 7px;align-self:flex-start}
+.day.out{background:var(--surface-2)}
+.ev{border:0;text-align:left;background:var(--sunk);border-left:3px solid var(--vca);border-radius:6px;padding:3px 6px;font:600 12px/1.25 var(--font-d);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ev.done{opacity:.55;text-decoration:line-through}
+.ev.more{background:none;border:0;color:var(--link);padding:0 4px}
+
+/* sign-in */
+.center{min-height:100vh;display:grid;place-items:center;padding:24px}
+.signin{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:30px 32px;max-width:420px;width:100%;text-align:center;border-top:6px solid var(--forest)}
+.signin .plate{display:inline-flex;padding:12px 18px}
+.signin .plate img{height:42px}
+.signin h1{font-size:24px;font-weight:800;margin:18px 0 6px;color:var(--head)}
+.signin p{color:var(--text-2);margin:0 0 20px}
+.signin .err{color:var(--danger);background:var(--danger-bg);border-radius:10px;padding:10px 12px;margin-bottom:16px;font-size:14px;text-align:left}
+.loading{padding:60px 0;text-align:center;color:var(--text-3)}
+
+/* ===== Bright theme: Adroit shades on every surface ===== */
+body{background:
+  radial-gradient(1200px 420px at 8% -120px, color-mix(in srgb,var(--spring) 22%,transparent), transparent 70%),
+  radial-gradient(1000px 380px at 96% -80px, color-mix(in srgb,var(--cobalt) 18%,transparent), transparent 70%),
+  var(--bg);background-attachment:fixed}
+header{border-bottom:0;box-shadow:0 1px 0 var(--line)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,var(--teal),var(--forest) 35%,var(--spring) 65%,var(--cobalt))}
+.btn.primary{background:linear-gradient(135deg,var(--forest),var(--teal));border-color:transparent;color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--forest) 35%,transparent)}
+.btn.primary:hover{filter:brightness(1.08);background:linear-gradient(135deg,var(--forest),var(--teal))}
+.avatar{background:linear-gradient(135deg,var(--cobalt),var(--teal))}
+
+/* At a glance: colored band, venture accents on each row */
+.glance{border:0}
+.glance-h{background:linear-gradient(120deg,var(--teal),var(--forest) 55%,color-mix(in srgb,var(--forest) 60%,var(--spring)));padding:18px 22px 16px;color:#fff}
+.glance-h h2{color:#fff}
+.glance-h span{color:rgba(255,255,255,.82)}
+.gl thead th{background:color-mix(in srgb,var(--forest) 7%,var(--surface))}
+.gl tbody tr:not(.total) td:first-child{box-shadow:inset 5px 0 0 var(--vca)}
+.gl tbody tr:not(.total):hover td{background:color-mix(in srgb,var(--vc) 6%,var(--surface))}
+.gl tr.total td{background:color-mix(in srgb,var(--teal) 8%,var(--surface))}
+.num.red{background:color-mix(in srgb,var(--danger) 10%,transparent)}
+.num.blue{background:color-mix(in srgb,var(--cobalt) 12%,transparent)}
+.num.amber{background:color-mix(in srgb,#C9A13B 14%,transparent)}
+.num.green{background:color-mix(in srgb,var(--spring) 18%,transparent)}
+.num.zero{background:none}
+
+/* Tabs and chips */
+.tabs{background:var(--surface);box-shadow:var(--shadow)}
+.tab[aria-selected="true"]{background:linear-gradient(135deg,var(--forest),var(--teal));color:#fff}
+.tab[aria-selected="true"] .c{color:rgba(255,255,255,.85)}
+.chip[aria-pressed="true"]{background:var(--vc,var(--teal));color:var(--vink,#fff);border-color:transparent;box-shadow:0 3px 10px color-mix(in srgb,var(--vc,var(--teal)) 35%,transparent)}
+.chip[aria-pressed="true"] .vdot{background:var(--vink)}
+.chip:not([aria-pressed="true"]):hover{background:color-mix(in srgb,var(--vc,var(--teal)) 10%,var(--surface))}
+
+/* Four venture columns side by side */
+.board{grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:16px}
+.col{border:0;border-top:0;background:color-mix(in srgb,var(--vc) 9%,var(--surface));container-type:inline-size;box-shadow:0 2px 4px rgba(18,34,32,.04),0 10px 28px color-mix(in srgb,var(--vc) 16%,transparent)}
+.col-top{background:linear-gradient(135deg,var(--vc),var(--vc2));color:var(--vink);padding-bottom:12px}
+.col-top .col-h{padding:16px 16px 4px}
+.col-top .col-h .vdot{display:none}
+.col-top h3{color:var(--vink);font-size:18px}
+.col-top .cnt{color:var(--vink);background:color-mix(in srgb,var(--vink) 16%,transparent);padding:3px 10px;border-radius:999px}
+.col-top .col-sub{color:var(--vink);opacity:.9;padding:2px 16px 0}
+.col-top .col-sub a{color:var(--vink);text-decoration:underline}
+.sec{border-top:0;color:color-mix(in srgb,var(--vc) 70%,var(--text));padding-top:14px}
+.card{background:var(--surface);border-color:color-mix(in srgb,var(--vc) 16%,var(--line));box-shadow:0 1px 2px rgba(18,34,32,.05);transition:transform .12s, box-shadow .12s}
+.card:hover{transform:translateY(-1px);box-shadow:0 6px 16px color-mix(in srgb,var(--vc) 20%,transparent);border-color:color-mix(in srgb,var(--vc) 40%,var(--line))}
+.circle{border-color:color-mix(in srgb,var(--vc) 55%,var(--line-2))}
+.circle:hover{border-color:var(--vc);color:var(--vc)}
+.circle.on{background:var(--vc);border-color:var(--vc);color:var(--vink)}
+.bar i{background:var(--vca)}
+.empty{color:color-mix(in srgb,var(--vc) 50%,var(--text-3))}
+.more{background:var(--surface);border-color:color-mix(in srgb,var(--vc) 30%,var(--line-2))}
+
+/* Status and priority in Adroit shades */
+.st{border:1px solid transparent}
+.s-notstarted{background:var(--surface-2);border-color:var(--line-2);color:var(--text-2)}
+.s-inprogress{background:color-mix(in srgb,var(--cobalt) 16%,var(--surface));color:var(--prog)}
+.s-done{background:color-mix(in srgb,var(--spring) 24%,var(--surface));color:var(--done)}
+.s-needssubtasks{background:var(--surface-2);border:1px dashed var(--line-2);color:var(--text-3)}
+.pri.P1{background:color-mix(in srgb,var(--danger) 14%,var(--surface));color:var(--danger)}
+.pri.P2{background:color-mix(in srgb,var(--cobalt) 15%,var(--surface));color:var(--prog)}
+.pri.P3{background:color-mix(in srgb,var(--spring) 22%,var(--surface));color:var(--done)}
+.tag{color:color-mix(in srgb,var(--vc) 75%,var(--text-2))}
+
+/* Narrow columns: status label moves under the title */
+@container (max-width: 340px){
+  .card{grid-template-columns:24px 1fr}
+  .card .st{grid-column:2;justify-self:start;margin-top:2px}
+  .t{-webkit-line-clamp:4}
+}
+@media (max-width:1100px){ .board{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:680px){ .board{grid-template-columns:1fr} }
+.board.single{grid-template-columns:1fr}
+
+@media (max-width:860px){
+  .hrow{flex-wrap:wrap;height:auto;padding:10px 0;gap:10px}
+  .search{order:5;flex-basis:100%;max-width:none}
+  .bt span{display:none}
+  .sync span{display:none}
+  .wrap{padding:0 16px}
+  .tools{margin-left:0}
+  .gl .hide-sm{display:none}
+  table.gl{min-width:0}
+  .board.single .list{grid-template-columns:1fr}
+  .grid3{grid-template-columns:1fr 1fr}
+  .day{min-height:74px}
+  .ev{font-size:10.5px;padding:2px 4px}
+}
+@media (max-width:520px){
+  #themeBtn{display:none}
+  .plate img{height:22px}
+  .bt b{font-size:16px}
+  .glance-h{flex-direction:column;gap:2px}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none}
+  .tab{flex:none}
+  .btn.add-txt span{display:none}
+  .btn.add-txt{padding:0 12px}
+  .grid3{grid-template-columns:1fr}
+  .num{font-size:19px;min-width:32px;padding:2px 4px}
+  .gl td,.gl th{padding:8px 6px}
+  .gl td:first-child,.gl th:first-child{padding-left:14px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.38.3/lib/msal-browser.min.js"></script>
+</head>
+<body>
+<header id="hdr" hidden>
+  <div class="wrap hrow">
+    <div class="brand">
+      <div class="plate"><img class="logo" alt="Adroit Associates"></div>
+      <div class="bt"><b>CEO Tasks</b><span>Every venture, one list</span></div>
+    </div>
+    <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search tasks" aria-label="Search tasks"></label>
+    <div id="sync" class="sync" title=""><i></i><span id="syncLabel">Syncing</span></div>
+    <button id="addBtn" class="btn primary add-txt" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add task</span></button>
+    <button id="themeBtn" class="icon-btn" type="button" aria-label="Theme: Automatic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></svg></button>
+    <button id="meBtn" class="avatar" type="button" aria-label="Account">?</button>
+  </div>
+</header>
+<main id="main"><div class="loading">Loading</div></main>
+<dialog id="sheet" aria-label="Task"></dialog>
+<dialog id="dlg"></dialog>
+<div id="stMenu" class="menu" role="menu"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   Settings. No task data, names or emails live in this file: everything
+   loads from the OneDrive workbooks after Microsoft 365 sign-in.
+   ===================================================================== */
+const CEO_CONFIG = {
+  tenant: "9d487fda-0ea2-435f-bd13-08b840144919",
+  clientId: "78980b1e-3b4b-43c5-a0bb-13aabfd9456e",
+  driveId: "b!SpKWniTZRkisa5k54yaZQGl1ee--q25ElsKyh1L1KIP5NjnF5qxNSrZJZR780Kg6",
+  itemId: "013N62QZ25VV3DOCYJLBAIYWARJALFWL5S"
+};
+const LOGO_SRC = (s => s.startsWith("%%") ? "assets/adroit-logo.svg" : s)("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ3IiB2aWV3Qm94PSIwIDAgMjAwIDQ3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBkPSJNNzguMDE2OCAxNC45MzYyVjI0LjQwMThINzQuMTIzN1YyMS4yMTNDNzIuNDQ1NSAyMy40OTU5IDY5Ljc1OTQgMjQuODA0OSA2Ni43MDU0IDI0LjgwNDlDNjIuODQ1MSAyNC44MDQ5IDYwLjQ2MjYgMjIuNzkwNCA2MC40NjI2IDE5LjQ2OEM2MC40NjI2IDE2LjA3NzYgNjIuOTQ1OCAxNC4xMzExIDY3LjIwOTMgMTQuMTMxMUM2OS42NTg2IDE0LjEzMTEgNzIuMjc2NyAxNC43Njg2IDc0LjEyMzcgMTUuODA5MlYxNS4yMDQ1Qzc0LjEyMzcgMTEuOTQ4OSA3Mi40MTE1IDEwLjQzOTUgNjguNzE5OSAxMC40Mzk1QzY2LjUwMzggMTAuNDM5NSA2NC41NTcyIDEwLjk3NjIgNjIuNzc4MyAxMi4xMTc3TDYxLjM2ODQgOS4xNjMyNkM2My41ODM0IDcuNzg3NDMgNjYuMDY3OSA3LjExNTkxIDY5LjI1NjcgNy4xMTU5MUM3NS4zMzE5IDcuMTE1OTEgNzguMDE2OCA5LjUzMjQyIDc4LjAxNjggMTQuOTM2MlpNNzQuMTIzNyAxOC4zOTMzQzcyLjU0NjMgMTcuNTU0MiA3MC4yOTczIDE3LjAxNzUgNjguMjUgMTcuMDE3NUM2NS43MzE1IDE3LjAxNzUgNjQuNDU2NSAxNy44MjI2IDY0LjQ1NjUgMTkuMzY3MkM2NC40NTY1IDIwLjg0MzggNjUuNjMxOSAyMS42ODI5IDY3Ljc4MDEgMjEuNjgyOUM3MC4yOTczIDIxLjY4MjkgNzIuNjQ1OCAyMC42MDk1IDc0LjEyMzcgMTguNzYyNVYxOC4zOTMzWiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNOTkuMTYxOCAwLjU3MDczMVYyNC40MDE4SDk1LjI2ODZWMjEuMjEzQzkzLjY5MTIgMjMuNTYyNyA5MS40NzUxIDI0LjgwNDkgODguNzU3NSAyNC44MDQ5Qzg0LjA1OCAyNC44MDQ5IDgwLjgzNTIgMjEuMjEzIDgwLjgzNTIgMTUuOTc2OEM4MC44MzUyIDEwLjcwNzkgODQuMDU4IDcuMTE1OTIgODguNzU3NSA3LjExNTkyQzkxLjQ3NTEgNy4xMTU5MiA5My42OTEyIDguMzU4MTcgOTUuMjY4NiAxMC43MDc5VjAuNTcwNzMxSDk5LjE2MThaTTk1LjI2ODYgMTMuMzU4N0M5My45NTk2IDExLjU0NyA5MS44NzgzIDEwLjQ3MjMgODkuNzY0MSAxMC40NzIzQzg2LjcwODkgMTAuNDcyMyA4NC43OTYzIDEyLjYyMDQgODQuNzk2MyAxNS45NzY4Qzg0Ljc5NjMgMTkuMzAwNCA4Ni43MDg5IDIxLjQ0ODYgODkuNzY0MSAyMS40NDg2QzkxLjg3ODMgMjEuNDQ4NiA5My45NTk2IDIwLjQwNzkgOTUuMjY4NiAxOC41NjIxVjEzLjM1ODdaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xMTUuMTk3IDcuMjUwNzFMMTE0Ljk2MiAxMC45NzYyQzExNC40MjUgMTAuODc1NSAxMTMuNjg3IDEwLjgwODcgMTEzLjA4MiAxMC44MDg3QzExMC4zMyAxMC44MDg3IDEwOC4zNSAxMS43ODEzIDEwNi42NzIgMTMuOTI5NVYyNC40MDE4SDEwMi43NzlWNy41MTkwOEgxMDYuNjcyVjExLjEwOThDMTA4LjM4NCA4LjQ5MTc0IDExMC41OTkgNy4xMTU5MiAxMTMuODIgNy4xMTU5MkMxMTQuMjkgNy4xMTU5MiAxMTQuNzk0IDcuMTQ5OTIgMTE1LjE5NyA3LjI1MDcxWiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNMTE1LjY3NSAxNS45NzY4QzExNS42NzUgMTAuNjczOSAxMTkuNTAyIDcuMTE1OTIgMTI1LjI0MiA3LjExNTkyQzEzMC45ODEgNy4xMTU5MiAxMzQuODA3IDEwLjY3MzkgMTM0LjgwNyAxNS45NzY4QzEzNC44MDcgMjEuMjc5OCAxMzAuOTgxIDI0LjgwNDkgMTI1LjI0MiAyNC44MDQ5QzExOS41MDIgMjQuODA0OSAxMTUuNjc1IDIxLjI3OTggMTE1LjY3NSAxNS45NzY4Wk0xMzAuODQ3IDE1Ljk3NjhDMTMwLjg0NyAxMi42NTQ0IDEyOC42MzEgMTAuNDcyMyAxMjUuMjQyIDEwLjQ3MjNDMTIxLjg1MSAxMC40NzIzIDExOS42MzYgMTIuNjU0NCAxMTkuNjM2IDE1Ljk3NjhDMTE5LjYzNiAxOS4yNjY0IDEyMS44NTEgMjEuNDQ4NiAxMjUuMjQyIDIxLjQ0ODZDMTI4LjYzMSAyMS40NDg2IDEzMC44NDcgMTkuMjY2NCAxMzAuODQ3IDE1Ljk3NjhaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xMzcuMDU5IDIuMjQ4OTJDMTM3LjA1OSAwLjkzOTg4MyAxMzguMDMzIDAgMTM5LjQ0MyAwQzE0MC44NTMgMCAxNDEuODI1IDAuOTM5ODgzIDE0MS44MjUgMi4yNDg5MkMxNDEuODI1IDMuNTkxOTYgMTQwLjg1MyA0LjUzMTg1IDEzOS40NDMgNC41MzE4NUMxMzguMDMzIDQuNTMxODUgMTM3LjA1OSAzLjU5MTk2IDEzNy4wNTkgMi4yNDg5MlpNMTM3LjQ5NiA3LjUxOTA4SDE0MS4zODlWMjQuNDAxOEgxMzcuNDk2VjcuNTE5MDhaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xNTguNDcyIDIwLjY0MjJDMTU3LjQzMSAyMS4xNzkgMTU2LjM1NyAyMS40NDg2IDE1NS4xODIgMjEuNDQ4NkMxNTMuMjM2IDIxLjQ0ODYgMTUyLjQ2MyAyMC43NDI5IDE1Mi40NjMgMTguOTMxM1YxMC41NzNIMTU4Ljg0MVY3LjUxOTA3SDE1Mi40NjNWMS41ODI0NUwxNDguNTcgMy41NzY3MlY3LjUxOTA3SDE0NC4xMzlWMTAuNTczSDE0OC41N1YxOS41Njg3QzE0OC41NyAyMy4wOTI3IDE1MC41NSAyNC44MDQ5IDE1NC41NzggMjQuODA0OUMxNTYuMzU3IDI0LjgwNDkgMTU3LjkwMSAyNC40Njg2IDE1OS4zMTEgMjMuNzY0MkwxNTguNDcyIDIwLjY0MjJaIiBmaWxsPSIjMDA1MDU1Ii8+CjxwYXRoIGQ9Ik0xNTIuNDM4IDEuNTc3MzFMMTUyLjQ2MyAxLjU4MjQ1TDE1Mi40NjMgMS41NzczMUgxNTIuNDM4WiIgZmlsbD0iIzAwNTA1NSIvPgo8cGF0aCBkPSJNNzQuNjc0MyAzNy43NTczVjQ1Ljg5MzVINzIuODY2MVY0Mi45ODM0QzcxLjExNDIgNDUuMTAyMyA2OC42Mjg0IDQ2LjIzMjggNjUuODU5NCA0Ni4yMzI4QzYyLjUyNTIgNDYuMjMyOCA2MC40NjI2IDQ0LjU2NTcgNjAuNDYyNiA0MS44NTNDNjAuNDYyNiAzOS4xMTI2IDYyLjU4MTQgMzcuNTAyOCA2Ni4yNTUgMzcuNTAyOEM2OC41NzExIDM3LjUwMjggNzEuMDAwNyAzOC4xNTE4IDcyLjg2NjEgMzkuMjUzN1YzNy45NTQ2QzcyLjg2NjEgMzQuNTkyOCA3MS4yNTUyIDMzLjEyMjkgNjcuNjEwMyAzMy4xMjI5QzY1LjQ5MTQgMzMuMTIyOSA2My42ODMzIDMzLjYwMzMgNjIuMTg1OSAzNC42NDlMNjEuNDIzNCAzMy4yMDc4QzYzLjE3NTMgMzIuMDQ5NyA2NS4yMDkzIDMxLjQ4NDUgNjcuNzUyNCAzMS40ODQ1QzcyLjQ5ODEgMzEuNDg0NSA3NC42NzQzIDMzLjQzMzcgNzQuNjc0MyAzNy43NTczWk03Mi44NjYxIDQwLjcyMzVDNzEuMTQyOCAzOS42NDkzIDY4Ljg1NDIgMzkuMDU2NCA2Ni41OTMzIDM5LjA1NjRDNjMuNzY4MSAzOS4wNTY0IDYyLjI5OTMgNDAuMDE3MiA2Mi4yOTkzIDQxLjgyNTRDNjIuMjk5MyA0My42MDQ5IDYzLjcxMTkgNDQuNjIxOSA2Ni4xNDE1IDQ0LjYyMTlDNjguNzk3IDQ0LjYyMTkgNzEuMzExNSA0My40MzUyIDcyLjg2NjEgNDEuNDU3NFY0MC43MjM1WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNNzUuOTgxMyA0NC4xMTM5TDc2LjgyODYgNDIuNjcyN0M3OC42MDkyIDQzLjkxNTYgODAuNzU1NiA0NC42MjE5IDgzLjQxMjEgNDQuNjIxOUM4Ni41NDggNDQuNjIxOSA4OC4zODM4IDQzLjY2MTEgODguMzgzOCA0Mi4wMjI2Qzg4LjM4MzggNDAuNDY5IDg3LjIyNTcgMzkuOTYgODMuMTU3NiAzOS42Nzc5Qzc4LjMyNiAzOS4zMzg1IDc2LjYzMTMgMzguMjkzOSA3Ni42MzEzIDM1LjY5NDZDNzYuNjMxMyAzMy4wOTU0IDc5LjE0NTggMzEuNDg0NSA4My4xMDE0IDMxLjQ4NDVDODUuNTMxIDMxLjQ4NDUgODcuNjc3NSAzMi4wNDk3IDg5LjMxNyAzMy4yMDc4TDg4LjU1MzUgMzQuNjQ5Qzg3LjE2OTUgMzMuNjMyIDg1LjE5MTcgMzMuMDY2NyA4Mi45ODggMzMuMDY2N0M4MC4xNjI4IDMzLjA2NjcgNzguNDY4MSAzNC4wNTYyIDc4LjQ2ODEgMzUuNjA5OEM3OC40NjgxIDM3LjEzNDggNzkuNjI2MiAzNy42NzI1IDgzLjcyMjkgMzcuOTU0NkM4OC40OTcyIDM4LjI5MzkgOTAuMjIwNiAzOS4zMzg1IDkwLjIyMDYgNDEuOTM3OEM5MC4yMjA2IDQ0LjY3ODEgODcuNzM0NyA0Ni4yMzI4IDgzLjM4MzUgNDYuMjMyOEM4MC4zNjAxIDQ2LjIzMjggNzcuODQ1NiA0NS40NDE3IDc1Ljk4MTMgNDQuMTEzOVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTkxLjEyOTkgNDQuMTEzOUw5MS45NzcyIDQyLjY3MjdDOTMuNzU3OCA0My45MTU2IDk1LjkwNDIgNDQuNjIxOSA5OC41NjA4IDQ0LjYyMTlDMTAxLjY5NyA0NC42MjE5IDEwMy41MzIgNDMuNjYxMSAxMDMuNTMyIDQyLjAyMjZDMTAzLjUzMiA0MC40NjkgMTAyLjM3NCAzOS45NiA5OC4zMDYyIDM5LjY3NzlDOTMuNDc0NiAzOS4zMzg1IDkxLjc3OTkgMzguMjkzOSA5MS43Nzk5IDM1LjY5NDZDOTEuNzc5OSAzMy4wOTU0IDk0LjI5NDQgMzEuNDg0NSA5OC4yNSAzMS40ODQ1QzEwMC42OCAzMS40ODQ1IDEwMi44MjYgMzIuMDQ5NyAxMDQuNDY2IDMzLjIwNzhMMTAzLjcwMiAzNC42NDlDMTAyLjMxOCAzMy42MzIgMTAwLjM0IDMzLjA2NjcgOTguMTM2NiAzMy4wNjY3Qzk1LjMxMTQgMzMuMDY2NyA5My42MTY3IDM0LjA1NjIgOTMuNjE2NyAzNS42MDk4QzkzLjYxNjcgMzcuMTM0OCA5NC43NzQ4IDM3LjY3MjUgOTguODcxNSAzNy45NTQ2QzEwMy42NDYgMzguMjkzOSAxMDUuMzY5IDM5LjMzODUgMTA1LjM2OSA0MS45Mzc4QzEwNS4zNjkgNDQuNjc4MSAxMDIuODgzIDQ2LjIzMjggOTguNTMyMSA0Ni4yMzI4Qzk1LjUwODcgNDYuMjMyOCA5Mi45OTQyIDQ1LjQ0MTcgOTEuMTI5OSA0NC4xMTM5WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTA2LjMzMiAzOC44NTgxQzEwNi4zMzIgMzQuNDUxNyAxMDkuNDY4IDMxLjQ4NDUgMTE0LjE1NyAzMS40ODQ1QzExOC44MTkgMzEuNDg0NSAxMjEuOTg0IDM0LjQ1MTcgMTIxLjk4NCAzOC44NTgxQzEyMS45ODQgNDMuMjM4IDExOC44MTkgNDYuMjMyOCAxMTQuMTU3IDQ2LjIzMjhDMTA5LjQ2OCA0Ni4yMzI4IDEwNi4zMzIgNDMuMjM4IDEwNi4zMzIgMzguODU4MVpNMTIwLjExOSAzOC44NTgxQzEyMC4xMTkgMzUuNDQwMSAxMTcuNzE3IDMzLjEyMyAxMTQuMTU3IDMzLjEyM0MxMTAuNTcgMzMuMTIzIDEwOC4xNjkgMzUuNDQwMSAxMDguMTY5IDM4Ljg1ODFDMTA4LjE2OSA0Mi4yNDg1IDExMC41NyA0NC41OTQzIDExNC4xNTcgNDQuNTk0M0MxMTcuNzE3IDQ0LjU5NDMgMTIwLjExOSA0Mi4yNDg1IDEyMC4xMTkgMzguODU4MVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTEyMy4yNTIgMzguODg2N0MxMjMuMjUyIDM0LjM5NDUgMTI2LjQxNyAzMS40ODQ1IDEzMS4xNjIgMzEuNDg0NUMxMzMuMTY5IDMxLjQ4NDUgMTM0Ljk0OCAzMS45NjQ5IDEzNi40NDYgMzIuOTgxOUwxMzUuNzM5IDM0LjQ3OTNDMTM0LjQxMiAzMy41NDcxIDEzMi44NTggMzMuMTIzIDEzMS4xOTEgMzMuMTIzQzEyNy41NDYgMzMuMTIzIDEyNS4xMTYgMzUuMzgzOSAxMjUuMTE2IDM4Ljg1ODFDMTI1LjExNiA0Mi4zNjIgMTI3LjU3NSA0NC41OTQzIDEzMS40MTcgNDQuNTk0M0MxMzMuMjI1IDQ0LjU5NDMgMTM0LjcyMiA0NC4wODUzIDEzNi4yMiA0My4wMTIxTDEzNi45ODIgNDQuNTA5NUMxMzUuMzE1IDQ1LjY5NjIgMTMzLjQ1MSA0Ni4yMzI4IDEzMS4zMDMgNDYuMjMyOEMxMjYuMzU5IDQ2LjIzMjggMTIzLjI1MiA0My4zMjI4IDEyMy4yNTIgMzguODg2N1oiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTEzOC41MzggMzEuODIzOEgxNDAuMzQ2VjQ1Ljg5MzVIMTM4LjUzOFYzMS44MjM4WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTU2LjIwMiAzNy43NTczVjQ1Ljg5MzVIMTU0LjM5NFY0Mi45ODM0QzE1Mi42NDIgNDUuMTAyMyAxNTAuMTU2IDQ2LjIzMjggMTQ3LjM4NyA0Ni4yMzI4QzE0NC4wNTMgNDYuMjMyOCAxNDEuOTkxIDQ0LjU2NTcgMTQxLjk5MSA0MS44NTNDMTQxLjk5MSAzOS4xMTI2IDE0NC4xMSAzNy41MDI4IDE0Ny43ODMgMzcuNTAyOEMxNTAuMDk5IDM3LjUwMjggMTUyLjUyOSAzOC4xNTE4IDE1NC4zOTQgMzkuMjUzN1YzNy45NTQ2QzE1NC4zOTQgMzQuNTkyOCAxNTIuNzgzIDMzLjEyMjkgMTQ5LjEzOCAzMy4xMjI5QzE0Ny4wMiAzMy4xMjI5IDE0NS4yMTEgMzMuNjAzMyAxNDMuNzE0IDM0LjY0OUwxNDIuOTUxIDMzLjIwNzhDMTQ0LjcwMyAzMi4wNDk3IDE0Ni43MzcgMzEuNDg0NSAxNDkuMjggMzEuNDg0NUMxNTQuMDI2IDMxLjQ4NDUgMTU2LjIwMiAzMy40MzM3IDE1Ni4yMDIgMzcuNzU3M1pNMTU0LjM5NCA0MC43MjM1QzE1Mi42NzEgMzkuNjQ5MyAxNTAuMzgyIDM5LjA1NjQgMTQ4LjEyMSAzOS4wNTY0QzE0NS4yOTYgMzkuMDU2NCAxNDMuODI3IDQwLjAxNzIgMTQzLjgyNyA0MS44MjU0QzE0My44MjcgNDMuNjA0OSAxNDUuMjQgNDQuNjIxOSAxNDcuNjcgNDQuNjIxOUMxNTAuMzI1IDQ0LjYyMTkgMTUyLjg0IDQzLjQzNTIgMTU0LjM5NCA0MS40NTc0VjQwLjcyMzVaIiBmaWxsPSIjMDA3RDY5Ii8+CjxwYXRoIGQ9Ik0xNzAuOTk3IDM5LjM5NThDMTcxLjIyMyA0Mi42NDQxIDE3My43MzcgNDQuNTk0MyAxNzcuNjY0IDQ0LjU5NDNDMTc5LjgxMiA0NC41OTQzIDE4MS41MzUgNDQuMDI5MSAxODMuMTQ2IDQyLjc1NzZMMTgzLjg4IDQ0LjIyNjRDMTgyLjE1NiA0NS41ODI3IDE4MC4wNjYgNDYuMjMyOCAxNzcuNTUyIDQ2LjIzMjhDMTcyLjM4MiA0Ni4yMzI4IDE2OS4xMzIgNDMuMzUwNCAxNjkuMTMyIDM4Ljg1ODFDMTY5LjEzMiAzNC40NTE3IDE3Mi4yNjggMzEuNDg0NSAxNzYuOTAyIDMxLjQ4NDVDMTgxLjUzNSAzMS40ODQ1IDE4NC42NDMgMzQuNDUxNyAxODQuNjQzIDM4Ljg1ODFWMzkuMzk1OEgxNzAuOTk3Wk0xNzEuMDI1IDM3Ljg2OTdIMTgyLjg2M0MxODIuNDQgMzQuOTg4MyAxODAuMTUxIDMzLjEyMyAxNzYuOTU4IDMzLjEyM0MxNzMuNzM3IDMzLjEyMyAxNzEuNDQ5IDM0Ljk4ODMgMTcxLjAyNSAzNy44Njk3WiIgZmlsbD0iIzAwN0Q2OSIvPgo8cGF0aCBkPSJNMTg1Ljc2MSA0NC4xMTM5TDE4Ni42MDggNDIuNjcyN0MxODguMzg5IDQzLjkxNTYgMTkwLjUzNSA0NC42MjE5IDE5My4xOTIgNDQuNjIxOUMxOTYuMzI3IDQ0LjYyMTkgMTk4LjE2MyA0My42NjExIDE5OC4xNjMgNDIuMDIyNkMxOTguMTYzIDQwLjQ2OSAxOTcuMDA1IDM5Ljk2IDE5Mi45MzcgMzkuNjc3OUMxODguMTA1IDM5LjMzODUgMTg2LjQxMSAzOC4yOTM5IDE4Ni40MTEgMzUuNjk0NkMxODYuNDExIDMzLjA5NTQgMTg4LjkyNSAzMS40ODQ1IDE5Mi44ODEgMzEuNDg0NUMxOTUuMzEgMzEuNDg0NSAxOTcuNDU3IDMyLjA0OTcgMTk5LjA5NiAzMy4yMDc4TDE5OC4zMzMgMzQuNjQ5QzE5Ni45NDkgMzMuNjMyIDE5NC45NzEgMzMuMDY2NyAxOTIuNzY3IDMzLjA2NjdDMTg5Ljk0MiAzMy4wNjY3IDE4OC4yNDggMzQuMDU2MiAxODguMjQ4IDM1LjYwOThDMTg4LjI0OCAzNy4xMzQ4IDE4OS40MDYgMzcuNjcyNSAxOTMuNTAyIDM3Ljk1NDZDMTk4LjI3NyAzOC4yOTM5IDIwMCAzOS4zMzg1IDIwMCA0MS45Mzc4QzIwMCA0NC42NzgxIDE5Ny41MTQgNDYuMjMyOCAxOTMuMTYzIDQ2LjIzMjhDMTkwLjE0IDQ2LjIzMjggMTg3LjYyNSA0NS40NDE3IDE4NS43NjEgNDQuMTEzOVoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTE2OC4xNzggNDMuODMwOEMxNjcuMjc1IDQ0LjMzOTggMTY2LjI4NSA0NC41OTQzIDE2NS4xODMgNDQuNTk0M0MxNjMuMjYzIDQ0LjU5NDMgMTYyLjM1OCA0My43NzQ1IDE2Mi4zNTggNDEuOTEwM1YzMy4zMjEySDE2OC4zMTlWMzEuODIzOEgxNjIuMzU4VjI2Ljc0MTdMMTYwLjU1IDI3LjY2OFYzMS44MjM4SDE1Ni40MjZWMzMuMzIxMkgxNjAuNTVWNDIuMDc5OEMxNjAuNTUgNDQuODQ3OSAxNjIuMDc2IDQ2LjIzMjggMTY1LjA0MiA0Ni4yMzI4QzE2Ni40MjYgNDYuMjMyOCAxNjcuNjEzIDQ1Ljk0OTcgMTY4LjcxNSA0NS4zNTY5TDE2OC4xNzggNDMuODMwOFoiIGZpbGw9IiMwMDdENjkiLz4KPHBhdGggZD0iTTkuMTIyNjMgMzMuMzY4NUM4LjE5MDUzIDM0LjMwMDQgOC4xOTA1MyAzNS44MTE1IDkuMTIyNjMgMzYuNzQzNkMxMC4wNTQ2IDM3LjY3NTcgMTEuNTY1OCAzNy42NzU3IDEyLjQ5NzggMzYuNzQzNkMxMy40Mjk5IDM1LjgxMTUgMTMuNDI5OSAzNC4zMDA0IDEyLjQ5NzggMzMuMzY4NUMxMS41NjU4IDMyLjQzNjQgMTAuMDU0NiAzMi40MzY0IDkuMTIyNjMgMzMuMzY4NVoiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zMzhfMTY0KSIvPgo8cGF0aCBkPSJNMzIuMDQ5OCAxMC4wNjYxSDM0Ljc3NzRDMzUuMzQxOSAxMC4wNjYxIDM1LjgwMDIgMTAuNTI0NCAzNS44MDAyIDExLjA4ODlWMTMuODE2NkMzNS44MDAyIDE0LjM4MTEgMzUuMzQxOSAxNC44Mzk0IDM0Ljc3NzQgMTQuODM5NEgzMi4wNDk3QzMxLjQ4NTIgMTQuODM5NCAzMS4wMjY5IDE0LjM4MTEgMzEuMDI2OSAxMy44MTY2VjExLjA4OUMzMS4wMjY5IDEwLjUyNDQgMzEuNDg1MiAxMC4wNjYxIDMyLjA0OTggMTAuMDY2MVoiIGZpbGw9InVybCgjcGFpbnQxX2xpbmVhcl8zMzhfMTY0KSIvPgo8cGF0aCBkPSJNNDEuMzY5MSAwLjUxOTM1OEgyNS40NTc5QzIzLjI2MSAwLjUxOTM1OCAyMS40ODAxIDIuMzAwMjQgMjEuNDgwMSA0LjQ5NzE2VjE4LjAyMTdDMjEuNDgwMSAyMC4yMTg0IDE5LjY5OTIgMjEuOTk5NSAxNy41MDIzIDIxLjk5OTVIMy45Nzc4QzEuNzgwODggMjEuOTk5NSAwIDIzLjc4MDQgMCAyNS45NzczVjQxLjg4ODVDMCA0NC4wODUyIDEuNzgwODggNDUuODY2MyAzLjk3NzggNDUuODY2M0gxOS44ODlDMjIuMDg1OCA0NS44NjYzIDIzLjg2NjggNDQuMDg1MiAyMy44NjY4IDQxLjg4ODVWMjguMzY0QzIzLjg2NjggMjYuMTY3MSAyNS42NDc3IDI0LjM4NjIgMjcuODQ0NiAyNC4zODYySDQxLjM2OTFDNDMuNTY2IDI0LjM4NjIgNDUuMzQ2OSAyMi42MDUxIDQ1LjM0NjkgMjAuNDA4NFY0LjQ5NzE2QzQ1LjM0NjkgMi4zMDAyNCA0My41NjYgMC41MTkzNTggNDEuMzY5MSAwLjUxOTM1OFpNMTguMTk4OCAyOC4xMzRDMTcuODM0OCAzMC4xMzg2IDE2LjQ5NDMgMzYuODg0IDE0LjYzNTYgMzguNzQxMkMxMi41NTkyIDQwLjgxNiA5LjE5Mjc0IDQwLjgxNiA3LjExNjI1IDM4Ljc0MTJDNS4wMzk4NSAzNi42NjY1IDUuMDY2MzYgMzMuMjc2IDcuMTE2MjUgMzEuMjI3N0M4Ljg4Mjc2IDI5LjQ2MjcgMTUuNzE0IDI4LjA1NjMgMTcuNzMyOSAyNy42NzIzQzE4LjAwNzYgMjcuNjIwMSAxOC4yNDg4IDI3Ljg1ODggMTguMTk4OCAyOC4xMzRaTTM5Ljk3NjkgMTcuMDg1N0MzOS45NzY5IDE4LjE1MTggMzkuMTEyNiAxOS4wMTYxIDM4LjA0NjUgMTkuMDE2MUgyOC43ODA1QzI3LjcxNDQgMTkuMDE2MSAyNi44NTAyIDE4LjE1MTggMjYuODUwMiAxNy4wODU3VjcuODE5ODNDMjYuODUwMiA2Ljc1MzcxIDI3LjcxNDQgNS44ODkzOSAyOC43ODA1IDUuODg5MzlIMzguMDQ2NUMzOS4xMTI2IDUuODg5MzkgMzkuOTc2OSA2Ljc1MzcxIDM5Ljk3NjkgNy44MTk4M1YxNy4wODU3WiIgZmlsbD0idXJsKCNwYWludDJfbGluZWFyXzMzOF8xNjQpIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MF9saW5lYXJfMzM4XzE2NCIgeDE9IjE2MjcuNTEiIHkxPSItMzExLjQ5OSIgeDI9IjE0MjIuODMiIHkyPSI1MjcuNTEiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agb2Zmc2V0PSIwLjAwMTIxIiBzdG9wLWNvbG9yPSIjNkVDMzRCIi8+CjxzdG9wIG9mZnNldD0iMC45OTc1OCIgc3RvcC1jb2xvcj0iIzE5OENDMyIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50MV9saW5lYXJfMzM4XzE2NCIgeDE9IjY1NS42NzciIHkxPSItOTguNjA4IiB4Mj0iNDUxLjAxMiIgeTI9Ijc0MC4zODYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agb2Zmc2V0PSIwLjAwMTIxIiBzdG9wLWNvbG9yPSIjNkVDMzRCIi8+CjxzdG9wIG9mZnNldD0iMC45OTc1OCIgc3RvcC1jb2xvcj0iIzE5OENDMyIvPgo8L2xpbmVhckdyYWRpZW50Pgo8bGluZWFyR3JhZGllbnQgaWQ9InBhaW50Ml9saW5lYXJfMzM4XzE2NCIgeDE9IjQ3LjE1NjgiIHkxPSItMC4wMDgwNjY5NCIgeDI9IjEuMzM0MjkiIHkyPSI0My40MTQyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMC4wNTY2OSIgc3RvcC1jb2xvcj0iIzZFQzM0QiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxOThDQzMiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K");
+const SCOPES = ["User.Read", "Files.ReadWrite.All"];
+const GRAPH = "https://graph.microsoft.com/v1.0";
+const CEO_TABLES = ["Tasks", "Ventures"];
+const KC_TABLES = ["Tasks", "Subtasks", "Partners"];
+const SCHEMA = {
+  Tasks: ["TaskID","Venture","Title","NextStep","Why","Type","Priority","Status","DueDate","WaitingOn","Notes","SourceRef","Source","CreatedBy","CreatedAt","UpdatedBy","UpdatedAt","CompletedAt","AgentSyncedAt"],
+  Ventures: ["Key","Name","Prefix","ColorHex","Order","Link","DriveId","ItemId","DashboardURL","Active"],
+  ActivityLog: ["Timestamp","User","Action","TaskID","Details"]
+};
+const KEYS = {Tasks:"TaskID", Subtasks:"SubtaskID", Ventures:"Key", Partners:"ShortName"};
+const DATE_COLS = new Set(["DueDate","StartDate","Date"]);
+const LOCAL_STATUSES = ["Not started","In progress","Waiting","Done","Dropped"];
+const KC_STATUSES = ["Not started","In progress","Blocked","Done","To confirm"];
+const CLOSED = new Set(["Done","Dropped"]);
+const WAITS = new Set(["Waiting","Blocked"]);
+const PRI_FROM_KC = {High:"P1", Medium:"P2", Low:"P3"};
+const PRI_TO_KC = {P1:"High", P2:"Medium", P3:"Low"};
+const PRI_NAME = {P1:"P1, high", P2:"P2, medium", P3:"P3, low"};
+const VIEWS = [["pending","Pending"],["overdue","Overdue"],["week","Next 7 days"],["waiting","Waiting"],["done","Completed"],["all","All"]];
+const SORTS = [["smart","Smart order"],["due","Due date, soonest"],["pri","Priority first"],["updated","Recently updated"]];
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const SHORT_M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+const S = {
+  mode: "live", ceo: null, links: {}, data: null, me: null, loading: true, error: null,
+  view: "pending", venture: "", q: "", pri: "", type: "", sort: "smart", cal: false, calMonth: null,
+  showAll: {}, lastSync: null, syncing: false, writing: false, showFilters: false
+};
+
+/* ---------- helpers ---------- */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const localISO = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const todayISO = () => localISO(new Date());
+const addDays = (iso, n) => { const d = new Date(iso+"T12:00:00"); d.setDate(d.getDate()+n); return localISO(d); };
+const nowStamp = () => new Date().toISOString().replace(/\.\d{3}Z$/,"Z");
+const clean = s => String(s ?? "").replace(/\s*\u2014\s*/g, ", ").trim();
+function fmtDate(iso){ if(!iso) return ""; const [y,m,d] = iso.slice(0,10).split("-").map(Number); if(!y||!m||!d) return iso; return `${MONTHS[m-1]} ${d}, ${y}`; }
+function fmtShort(iso){ if(!iso) return ""; const [y,m,d] = iso.slice(0,10).split("-").map(Number); if(!y||!m||!d) return iso; return `${SHORT_M[m-1]} ${d}${y !== new Date().getFullYear() ? `, ${y}` : ""}`; }
+function fmtTime(d){ let h=d.getHours(), m=d.getMinutes(); const ap=h>=12?"pm":"am"; h=h%12||12; return `${h}:${pad(m)} ${ap}`; }
+function fmtStamp(ts){ if(!ts) return ""; const d = new Date(ts); if(isNaN(d)) return ts; return `${fmtDate(localISO(d))}, ${fmtTime(d)}`; }
+const daysBetween = (a, b) => Math.round((new Date(b+"T12:00:00") - new Date(a+"T12:00:00")) / 86400000);
+function normValue(col, v){
+  if (v === null || v === undefined) return "";
+  if (DATE_COLS.has(col) && typeof v === "number" && v > 20000){ return new Date(Date.UTC(1899,11,30) + v*86400000).toISOString().slice(0,10); }
+  if (col === "Order") return Number(v) || 0;
+  return typeof v === "string" ? v.trim() : String(v);
+}
+const ICON = {
+  cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  caret: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg>',
+  ext: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  link: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'
+};
+
+/* =====================================================================
+   Stores: Graph (live) and Memory (preview). One store per workbook.
+   ===================================================================== */
+class GraphError extends Error { constructor(status, code, message){ super(message); this.status = status; this.code = code; } }
+
+class GraphStore {
+  constructor(auth, driveId, itemId, tables){ this.auth = auth; this.driveId = driveId; this.itemId = itemId; this.tables = tables; this.sessionId = null; this.headers = {}; }
+  get wb(){ return `/drives/${this.driveId}/items/${this.itemId}/workbook`; }
+  async call(method, path, body){
+    const headers = {Authorization: "Bearer " + await this.auth.token()};
+    if (body !== undefined) headers["Content-Type"] = "application/json";
+    if (this.sessionId) headers["workbook-session-id"] = this.sessionId;
+    let res;
+    for (let attempt = 0; attempt < 5; attempt++){
+      res = await fetch(GRAPH + path, {method, headers, body: body === undefined ? undefined : JSON.stringify(body)});
+      if ([429,503,504].includes(res.status)){ const wait = Number(res.headers.get("Retry-After")) || 2**attempt; await new Promise(r => setTimeout(r, Math.min(wait,20)*1000)); continue; }
+      break;
+    }
+    if (!res.ok){
+      let code = "", msg = res.statusText;
+      try { const j = await res.json(); code = j.error?.code || ""; msg = j.error?.message || msg; } catch(e){}
+      throw new GraphError(res.status, code, msg);
+    }
+    if (res.status === 204) return {};
+    return (res.headers.get("Content-Type") || "").includes("json") ? res.json() : {};
+  }
+  async me(){ return this.call("GET", "/me?$select=displayName,mail,userPrincipalName"); }
+  cols(table){ return this.headers[table] || SCHEMA[table]; }
+  async readTable(name){
+    const values = (await this.call("GET", `${this.wb}/tables/${name}/range?$select=values`)).values || [];
+    if (!values.length) return [];
+    const head = values[0]; this.headers[name] = head;
+    return values.slice(1).map((row, i) => {
+      const rec = {}; head.forEach((h, j) => rec[h] = normValue(h, row[j]));
+      Object.defineProperty(rec, "_index", {value:i, enumerable:false});
+      Object.defineProperty(rec, "_blank", {value:row.every(v => v === "" || v === null), enumerable:false});
+      return rec;
+    });
+  }
+  async readAll(){
+    const res = await Promise.all(this.tables.map(n => this.readTable(n)));
+    const out = {}; this.tables.forEach((n,i) => out[n] = res[i].filter(r => !r._blank)); return out;
+  }
+  async readRow(table, id){ return (await this.readTable(table)).find(r => r[KEYS[table]] === id) || null; }
+  /* Writes the whole row in the workbook's own column order, so columns this page does not know about are kept. */
+  async patch(table, rec){
+    const rows = await this.readTable(table);
+    const row = rows.find(r => r[KEYS[table]] === rec[KEYS[table]]);
+    if (!row) throw new GraphError(404, "rowNotFound", `${rec[KEYS[table]]} was not found in ${table}.`);
+    await this.call("PATCH", `${this.wb}/tables/${table}/rows/itemAt(index=${row._index})`, {values:[this.cols(table).map(c => rec[c] ?? row[c] ?? "")]});
+  }
+  async patchMany(table, recs){
+    if (!recs.length) return;
+    const rows = await this.readTable(table);
+    for (const rec of recs){
+      const row = rows.find(r => r[KEYS[table]] === rec[KEYS[table]]);
+      if (!row) throw new GraphError(404, "rowNotFound", `${rec[KEYS[table]]} was not found in ${table}.`);
+      await this.call("PATCH", `${this.wb}/tables/${table}/rows/itemAt(index=${row._index})`, {values:[this.cols(table).map(c => rec[c] ?? row[c] ?? "")]});
+    }
+  }
+  /* Append rows. Reads only the first row (not the whole table) to fill a new table's blank starter row. */
+  async add(table, recs){
+    if (!recs.length) return;
+    if (!this.headers[table]){ const h = await this.call("GET", `${this.wb}/tables/${table}/headerRowRange?$select=values`); this.headers[table] = h.values[0]; }
+    let rows = recs.map(rec => this.cols(table).map(c => rec[c] ?? ""));
+    const top = (await this.call("GET", `${this.wb}/tables/${table}/rows?$top=2&$select=values`).catch(() => ({value:[]}))).value || [];
+    if (top.length === 1 && (top[0].values?.[0] || []).every(x => x === "" || x === null)){
+      await this.call("PATCH", `${this.wb}/tables/${table}/rows/itemAt(index=0)`, {values:[rows[0]]}); rows = rows.slice(1);
+    }
+    for (let i = 0; i < rows.length; i += 40) await this.call("POST", `${this.wb}/tables/${table}/rows/add`, {values: rows.slice(i, i+40)});
+  }
+  async session(fn){
+    const s = await this.call("POST", `${this.wb}/createSession`, {persistChanges:true});
+    this.sessionId = s.id;
+    try { return await fn(); }
+    finally { try { await this.call("POST", `${this.wb}/closeSession`); } catch(e){} this.sessionId = null; }
+  }
+}
+
+class MemoryStore {
+  constructor(data){ this.data = JSON.parse(JSON.stringify(data)); for (const t of Object.keys(this.data)) this.data[t] = this.data[t] || []; }
+  async delay(){ await new Promise(r => setTimeout(r, 160)); }
+  async me(){ return {}; }
+  async readAll(){ await this.delay(); return JSON.parse(JSON.stringify(this.data)); }
+  async readTable(t){ await this.delay(); return JSON.parse(JSON.stringify(this.data[t] || [])); }
+  async readRow(t, id){ await this.delay(); const r = (this.data[t]||[]).find(x => x[KEYS[t]] === id); return r ? {...r} : null; }
+  async patch(t, rec){ await this.delay(); const i = this.data[t].findIndex(x => x[KEYS[t]] === rec[KEYS[t]]); if (i < 0) throw new GraphError(404, "rowNotFound", "Row not found"); this.data[t][i] = {...this.data[t][i], ...rec}; }
+  async patchMany(t, recs){ for (const r of recs) await this.patch(t, r); }
+  async add(t, recs){ await this.delay(); (this.data[t] = this.data[t] || []).push(...recs.map(r => ({...r}))); }
+  async session(fn){ return fn(); }
+}
+
+/* =====================================================================
+   Auth (MSAL 2.x redirect flow, works on phones)
+   ===================================================================== */
+const Auth = {
+  app: null, account: null,
+  async init(){
+    this.app = new msal.PublicClientApplication({
+      auth: {clientId: CEO_CONFIG.clientId, authority: `https://login.microsoftonline.com/${CEO_CONFIG.tenant}`, redirectUri: location.origin + location.pathname.replace(/index\.html$/, ""), navigateToLoginRequestUrl: true},
+      cache: {cacheLocation: "localStorage", storeAuthStateInCookie: false}
+    });
+    const res = await this.app.handleRedirectPromise();
+    this.account = res?.account || this.app.getAllAccounts()[0] || null;
+    return this.account;
+  },
+  login(){ return this.app.loginRedirect({scopes: SCOPES, prompt: "select_account"}); },
+  async token(){
+    try { return (await this.app.acquireTokenSilent({scopes: SCOPES, account: this.account})).accessToken; }
+    catch(e){ if (e instanceof msal.InteractionRequiredAuthError) await this.app.acquireTokenRedirect({scopes: SCOPES, account: this.account}); throw e; }
+  },
+  logout(){ return this.app.logoutRedirect({account: this.account, postLogoutRedirectUri: location.origin + location.pathname.replace(/index\.html$/, "")}); }
+};
+
+function friendlyError(e, where){
+  const code = (e && (e.errorCode || e.code)) || "", msg = (e && (e.errorMessage || e.message)) || "";
+  const book = where || "your CEO Tasks workbook";
+  if (!navigator.onLine) return "You are offline. Reconnect and the tracker will refresh on its own.";
+  if (code === "user_cancelled") return "Sign-in was cancelled. Select Sign in to try again.";
+  if (code === "interaction_in_progress") return "A sign-in is already in progress. Finish it, or reload this page.";
+  if (/AADSTS65001|consent_required/i.test(code + msg)) return "This app needs consent in Microsoft 365 before it can open your workbooks. See SETUP.md, step A8.";
+  if (/AADSTS50105|AADSTS50020|AADSTS90072/i.test(msg)) return "This Microsoft account is not allowed to use CEO Tasks. Sign in with your Adroit account.";
+  if (/AADSTS700016|AADSTS90002/i.test(msg)) return "The sign-in settings do not match the Microsoft 365 tenant. Check the app registration ID in the page settings.";
+  if (/AADSTS9002326/i.test(msg)) return "This web address is registered with the wrong type. List it under Single-page application in the app registration.";
+  if (/AADSTS50011/i.test(msg)) return "This web address is not registered for sign-in yet. Add it as a redirect URI in the app registration.";
+  if (e instanceof GraphError){
+    if (e.status === 401) return "Your sign-in expired. Sign in again.";
+    if (e.status === 403) return `Your account cannot open ${book}.`;
+    if (e.status === 404) return `${book[0].toUpperCase() + book.slice(1)} could not be found. It may have been moved or renamed.`;
+    if (e.status === 409 || e.status === 423) return `${book[0].toUpperCase() + book.slice(1)} is busy, probably open for editing in Excel. Try again in a minute.`;
+    if (e.status >= 500) return "Microsoft 365 is having trouble right now. The tracker will try again shortly.";
+    return `Microsoft 365 returned an error: ${e.message}`;
+  }
+  if (/Failed to fetch|NetworkError|network/i.test(msg)) return "Cannot reach Microsoft 365 right now. Check your internet connection.";
+  return msg || "Something went wrong.";
+}
+
+/* =====================================================================
+   Boot and refresh
+   ===================================================================== */
+async function boot(){
+  document.querySelectorAll("img.logo").forEach(i => i.src = LOGO_SRC);
+  try { const t = localStorage.getItem("ceo-theme"); if (t) document.documentElement.dataset.theme = t; } catch(e){}
+  const params = new URLSearchParams(location.search);
+  if (["light","dark"].includes(params.get("theme"))) document.documentElement.dataset.theme = params.get("theme");
+  themeIcon();
+  S.calMonth = todayISO().slice(0,7);
+  try {
+    const p = JSON.parse(localStorage.getItem("ceo-prefs") || "{}");
+    if (VIEWS.some(v => v[0] === p.view)) S.view = p.view;
+    if (SORTS.some(v => v[0] === p.sort)) S.sort = p.sort;
+    S.venture = p.venture || ""; S.cal = !!p.cal;
+  } catch(e){}
+  if (params.has("preview")){
+    S.mode = "preview";
+    try {
+      const r = await fetch(`preview-${params.get("preview") || "sample"}.json`, {cache:"no-store"});
+      if (!r.ok) throw new Error("preview file not found");
+      const d = await r.json();
+      S.ceo = new MemoryStore(d.ceo);
+      for (const [k, v] of Object.entries(d.linked || {})) S.links[k] = {store: new MemoryStore(v)};
+      S.me = {...d.me};
+      showApp(); await refresh(true);
+    } catch(e){ renderFatal("Preview data could not be loaded. " + e.message); }
+    return;
+  }
+  if (["localhost","127.0.0.1"].includes(location.hostname) && params.get("item")) CEO_CONFIG.itemId = params.get("item");
+  if (!CEO_CONFIG.clientId || !CEO_CONFIG.driveId){ renderFatal("CEO Tasks is not connected to Microsoft 365 yet. The app registration ID and workbook location still need to be added to the page settings (see SETUP.md)."); return; }
+  try {
+    const acct = await Auth.init();
+    if (!acct){ renderSignIn(); return; }
+    S.ceo = new GraphStore(Auth, CEO_CONFIG.driveId, CEO_CONFIG.itemId, CEO_TABLES);
+    const me = await S.ceo.me();
+    S.me = {name: me.displayName || "", email: (me.mail || me.userPrincipalName || "").toLowerCase()};
+    showApp(); await refresh(true);
+  } catch(e){ console.error(e); renderSignIn(friendlyError(e)); }
+}
+
+function showApp(){ $("#hdr").hidden = false; wireHeader(); }
+function savePrefs(){ try { localStorage.setItem("ceo-prefs", JSON.stringify({view:S.view, sort:S.sort, venture:S.venture, cal:S.cal})); } catch(e){} }
+
+async function refresh(first=false){
+  if (S.syncing || S.writing) return;
+  if (!navigator.onLine){ setSync("off"); return; }
+  S.syncing = true; setSync("busy");
+  try {
+    const data = await S.ceo.readAll();
+    S.data = data; S.error = null;
+    await Promise.all(ventures().filter(v => v.Link === "kc").map(loadLinked));
+    S.loading = false; S.lastSync = new Date(); setSync("ok");
+  } catch(e){ console.error(e); S.error = friendlyError(e); S.loading = false; setSync("off"); }
+  finally { S.syncing = false; }
+  if (S.data) render(); else if (S.error) renderFatal(S.error, S.mode === "live");
+}
+
+/* A venture with its own dashboard: read its workbook live, and find "me" on its partner list by email. */
+async function loadLinked(v){
+  let L = S.links[v.Key];
+  if (!L){
+    if (S.mode === "preview" || !v.DriveId || !v.ItemId){ S.links[v.Key] = {error: "This venture's dashboard workbook is not set in the Ventures table."}; return; }
+    L = S.links[v.Key] = {store: new GraphStore(Auth, v.DriveId, v.ItemId, KC_TABLES)};
+  }
+  if (!L.store) return;
+  try {
+    L.data = await L.store.readAll();
+    const p = (L.data.Partners || []).find(p => (p.Email || "").toLowerCase() === (S.me.email || "").toLowerCase());
+    L.me = p ? p.ShortName : null;
+    L.error = p ? null : `You are not on the ${v.Name} partner list with ${S.me.email}.`;
+  } catch(e){ console.error(e); L.error = friendlyError(e, `the ${v.Name} workbook`); }
+}
+
+function setSync(state){
+  const el = $("#sync"); if (!el) return;
+  el.className = "sync" + (state === "busy" ? " busy" : state === "off" ? " off" : "");
+  $("#syncLabel").textContent = state === "busy" ? "Syncing" : state === "off" ? (navigator.onLine ? "Not synced" : "Offline") : (S.lastSync ? `Synced ${fmtTime(S.lastSync)}` : "Synced");
+  el.title = S.lastSync ? `Last synced ${fmtStamp(S.lastSync.toISOString())}. Refreshes every 60 seconds.` : "";
+}
+setInterval(() => { if (S.ceo && document.visibilityState === "visible" && !document.querySelector("dialog[open]")) refresh(); }, 60000);
+window.addEventListener("focus", () => { if (S.ceo && !document.querySelector("dialog[open]")) refresh(); });
+window.addEventListener("online", () => { if (S.ceo) refresh(); });
+window.addEventListener("offline", () => setSync("off"));
+
+/* =====================================================================
+   Derived data: one list of my items across ventures
+   ===================================================================== */
+function ventures(){
+  return (S.data?.Ventures || []).filter(v => (v.Active || "Yes") !== "No").sort((a,b) => (+a.Order||99) - (+b.Order||99));
+}
+const ventureByKey = k => ventures().find(v => v.Key === k);
+const vColor = v => /^#[0-9a-f]{6}$/i.test(v?.ColorHex || "") ? v.ColorHex : "#357B6A";
+/* Header ink and gradient end for a venture color: light colors (Spring) get dark ink, dark ones get white. */
+function vStyle(v){
+  const hex = vColor(v), [r,g,b] = [1,3,5].map(i => parseInt(hex.slice(i,i+2),16)/255).map(c => c <= .03928 ? c/12.92 : ((c+.055)/1.055)**2.4);
+  const light = .2126*r + .7152*g + .0722*b > .3;
+  return `--vc:${hex};--vink:${light ? "#10301C" : "#FFFFFF"};--vc2:color-mix(in srgb,${hex} ${light ? "72%,#F4FFE9" : "70%,#06201E"})`;
+}
+
+function buildItems(){
+  const out = [];
+  for (const v of ventures()){
+    if (v.Link === "kc"){
+      const L = S.links[v.Key]; if (!L?.data || !L.me) continue;
+      const tasks = L.data.Tasks || [], subs = L.data.Subtasks || [];
+      for (const t of tasks) if (t.Lead === L.me){
+        const ts = subs.filter(s => s.TaskID === t.TaskID).sort((a,b) => (+a.Order||0) - (+b.Order||0));
+        out.push({key:`${v.Key}:${t.TaskID}`, kind:"kc", v, L, id:t.TaskID, title:t.Title, status:t.Status || "Not started", due:t.DueDate, pri:PRI_FROM_KC[t.Priority] || "P2",
+          type:t.Domain, waiting:t.BlockedReason, notes:t.Notes, desc:t.Description, source:t.Source, completedAt:t.CompletedAt, updatedAt:t.UpdatedAt, subs:ts, row:t});
+      }
+      for (const s of subs) if (s.Owner === L.me){
+        const t = tasks.find(x => x.TaskID === s.TaskID); if (!t || t.Lead === L.me) continue;
+        out.push({key:`${v.Key}:${s.SubtaskID}`, kind:"kcsub", v, L, id:s.SubtaskID, title:s.Title, status:s.Status === "Done" ? "Done" : (s.Status || "Not started"), due:s.DueDate || t.DueDate,
+          pri:PRI_FROM_KC[t.Priority] || "P2", parent:t, completedAt:s.CompletedAt, updatedAt:s.UpdatedAt, row:s});
+      }
+    } else {
+      for (const t of (S.data.Tasks || [])) if (t.Venture === v.Key)
+        out.push({key:`ceo:${t.TaskID}`, kind:"local", v, id:t.TaskID, title:t.Title, status:t.Status || "Not started", due:t.DueDate, pri:t.Priority || "P2", type:t.Type,
+          next:t.NextStep, why:t.Why, waiting:t.WaitingOn, notes:t.Notes, ref:t.SourceRef, source:t.Source, completedAt:t.CompletedAt, updatedAt:t.UpdatedAt || t.CreatedAt, row:t});
+    }
+  }
+  return out;
+}
+const isOpen = it => !CLOSED.has(it.status);
+const isOverdue = it => isOpen(it) && it.due && it.due < todayISO() && it.status !== "To confirm";
+const isWeek = it => isOpen(it) && it.due && it.due >= todayISO() && it.due <= addDays(todayISO(), 7);
+const isWaiting = it => isOpen(it) && WAITS.has(it.status);
+const doneRecently = (it, days) => it.status === "Done" && it.completedAt && it.completedAt.slice(0,10) >= addDays(todayISO(), -days);
+function inView(it, view){
+  switch(view){
+    case "pending": return isOpen(it);
+    case "overdue": return isOverdue(it);
+    case "week": return isWeek(it);
+    case "waiting": return isWaiting(it);
+    case "done": return !isOpen(it);
+    default: return true;
+  }
+}
+function matches(it){
+  if (S.pri && it.pri !== S.pri) return false;
+  if (S.type && (it.type || "") !== S.type) return false;
+  if (S.q){
+    const q = S.q.toLowerCase();
+    const hay = [it.title, it.id, it.next, it.notes, it.waiting, it.ref, it.parent?.Title].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+const PRI_RANK = {P1:0, P2:1, P3:2};
+function sortItems(list){
+  const far = "9999-12-31";
+  const by = {
+    smart: (a,b) => (isOverdue(b) - isOverdue(a)) || (a.due||far).localeCompare(b.due||far) || (PRI_RANK[a.pri]??1) - (PRI_RANK[b.pri]??1) || a.id.localeCompare(b.id),
+    due: (a,b) => (a.due||far).localeCompare(b.due||far) || a.id.localeCompare(b.id),
+    pri: (a,b) => (PRI_RANK[a.pri]??1) - (PRI_RANK[b.pri]??1) || (a.due||far).localeCompare(b.due||far),
+    updated: (a,b) => (b.updatedAt||"").localeCompare(a.updatedAt||"")
+  };
+  const done = (a,b) => (b.completedAt||"").localeCompare(a.completedAt||"");
+  return list.slice().sort(S.view === "done" ? done : by[S.sort] || by.smart);
+}
+const canDone = it => it.kind === "local" || it.kind === "kcsub" || (it.kind === "kc" && it.row.Lead === it.L.me);
+
+/* =====================================================================
+   Render
+   ===================================================================== */
+function render(){
+  closeMenu();
+  const main = $("#main");
+  if (!S.data){ main.innerHTML = `<div class="loading">Loading</div>`; return; }
+  const all = buildItems();
+  const scoped = all.filter(it => (!S.venture || it.v.Key === S.venture) && matches(it));
+  const counts = Object.fromEntries(VIEWS.map(([k]) => [k, scoped.filter(it => inView(it, k)).length]));
+  const linkErrs = ventures().filter(v => v.Link && S.links[v.Key]?.error).map(v => `<div class="banner err"><b>${esc(v.Name)}:</b> ${esc(S.links[v.Key].error)}</div>`).join("");
+  main.innerHTML = `<div class="wrap">
+    ${S.mode === "preview" ? `<div class="banner"><b>Design sample.</b> These tasks are made up so the layout can be reviewed. Nothing here is real or saved.</div>` : ""}
+    ${S.error ? `<div class="banner err">${esc(S.error)}</div>` : ""}${linkErrs}
+    ${renderGlance(all)}
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="Which tasks">${VIEWS.map(([k,l]) => `<button class="tab" role="tab" data-view="${k}" aria-selected="${!S.cal && S.view===k}">${l}<span class="c${k==="overdue" && counts[k] ? " red" : ""}">${counts[k]}</span></button>`).join("")}</div>
+      <div class="tools">
+        <button class="btn small ${S.cal ? "primary" : ""}" data-act="cal" aria-pressed="${S.cal}">${ICON.cal.replace('aria-hidden','width="15" height="15" aria-hidden')} Calendar</button>
+        <select class="sel" id="sortSel" aria-label="Sort">${SORTS.map(([k,l]) => `<option value="${k}" ${S.sort===k?"selected":""}>${l}</option>`).join("")}</select>
+        <button class="btn small ${S.pri||S.type ? "primary" : ""}" data-act="filters" aria-expanded="${S.showFilters}">Filters${S.pri||S.type ? " on" : ""}</button>
+      </div>
+    </div>
+    ${S.showFilters ? renderFilters(all) : ""}
+    <div class="chips" role="group" aria-label="Venture"><span class="lbl">Venture</span>
+      <button class="chip" data-venture="" aria-pressed="${!S.venture}">All ventures</button>
+      ${ventures().map(v => `<button class="chip" data-venture="${esc(v.Key)}" aria-pressed="${S.venture===v.Key}" style="${vStyle(v)}"><span class="vdot"></span>${esc(v.Name)}</button>`).join("")}
+    </div>
+    ${S.cal ? renderCalendar(scoped) : renderBoard(scoped)}
+  </div>`;
+  wireMain();
+}
+
+function renderGlance(all){
+  const rows = ventures().map(v => {
+    const mine = all.filter(it => it.v.Key === v.Key);
+    const L = v.Link ? S.links[v.Key] : null;
+    return {v, open: mine.filter(isOpen).length, od: mine.filter(isOverdue).length, wk: mine.filter(isWeek).length, wt: mine.filter(isWaiting).length,
+      done: mine.filter(it => doneRecently(it, 30)).length, sub: v.Link ? (L?.error ? "Not connected" : "Live from its own dashboard") : (v.Key === "adroit" ? "Kept in step with the CEO agent" : "Kept here")};
+  });
+  const tot = rows.reduce((a,r) => ({open:a.open+r.open, od:a.od+r.od, wk:a.wk+r.wk, wt:a.wt+r.wt, done:a.done+r.done}), {open:0,od:0,wk:0,wt:0,done:0});
+  const n = (val, cls, v, view) => `<button class="num ${val ? cls : "zero"}" data-jump="${esc(v)}|${view}" aria-label="${val} ${view}">${val}</button>`;
+  const mix = r => { const later = Math.max(0, r.open - r.od - r.wk - r.wt); const tt = r.open || 1;
+    return `<div class="mix" role="img" aria-label="${r.od} overdue, ${r.wk} due in 7 days, ${r.wt} waiting, ${later} later or no date">${[["m-od",r.od],["m-wk",r.wk],["m-wt",r.wt],["m-lt",later]].map(([c,x]) => x ? `<i class="${c}" style="width:${x/tt*100}%"></i>` : "").join("")}</div>`; };
+  return `<section class="glance" aria-labelledby="glh">
+    <div class="glance-h"><h2 id="glh">At a glance</h2><span>Open tasks per venture. Select a number to see the list.</span></div>
+    <div class="tbl-wrap"><table class="gl">
+      <thead><tr><th>Venture</th><th>Open</th><th>Overdue</th><th>Next 7 days</th><th class="hide-sm">Waiting</th><th class="hide-sm">Done, 30 days</th><th class="hide-sm" style="text-align:left">Open tasks by due date</th></tr></thead>
+      <tbody>${rows.map(r => `<tr style="${vStyle(r.v)}">
+        <td><div class="vn"><span class="vdot"></span><div><b>${esc(r.v.Name)}</b><small>${esc(r.sub)}</small></div></div></td>
+        <td>${n(r.open,"",r.v.Key,"pending")}</td><td>${n(r.od,"red",r.v.Key,"overdue")}</td><td>${n(r.wk,"blue",r.v.Key,"week")}</td>
+        <td class="hide-sm">${n(r.wt,"amber",r.v.Key,"waiting")}</td><td class="hide-sm">${n(r.done,"green",r.v.Key,"done")}</td><td class="hide-sm">${mix(r)}</td></tr>`).join("")}
+        <tr class="total"><td><div class="vn"><span class="vdot" style="background:var(--text-3)"></span><div><b>All ventures</b><small>${tot.open} open</small></div></div></td>
+        <td>${n(tot.open,"","","pending")}</td><td>${n(tot.od,"red","","overdue")}</td><td>${n(tot.wk,"blue","","week")}</td><td class="hide-sm">${n(tot.wt,"amber","","waiting")}</td><td class="hide-sm">${n(tot.done,"green","","done")}</td><td class="hide-sm">${mix(tot)}</td></tr>
+      </tbody></table></div>
+    <div class="legend"><span><i style="background:var(--danger)"></i>Overdue</span><span><i style="background:var(--cobalt)"></i>Due in 7 days</span><span><i style="background:#C9A13B"></i>Waiting</span><span><i style="background:var(--line-2)"></i>Later or no date</span></div>
+  </section>`;
+}
+
+function renderFilters(all){
+  const types = [...new Set(all.filter(it => !S.venture || it.v.Key === S.venture).map(it => it.type).filter(Boolean))].sort();
+  return `<div class="filters">
+    <label>Priority <select class="sel" id="fPri"><option value="">Any</option>${["P1","P2","P3"].map(p => `<option ${S.pri===p?"selected":""} value="${p}">${PRI_NAME[p]}</option>`).join("")}</select></label>
+    <label>Type <select class="sel" id="fType"><option value="">Any</option>${types.map(t => `<option ${S.type===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+    ${S.pri || S.type ? `<button class="btn small ghost" data-act="clearFilters">Clear filters</button>` : ""}
+  </div>`;
+}
+
+function renderBoard(scoped){
+  const vs = S.venture ? ventures().filter(v => v.Key === S.venture) : ventures();
+  return `<div class="board ${vs.length === 1 ? "single" : ""}" style="--n:${vs.length}">${vs.map(v => renderColumn(v, scoped.filter(it => it.v.Key === v.Key && inView(it, S.view)))).join("")}</div>`;
+}
+
+function renderColumn(v, list){
+  const L = v.Link ? S.links[v.Key] : null;
+  const pend = list.filter(isOpen).length;
+  const head = `<div class="col-h"><span class="vdot"></span><h3>${esc(v.Name)}</h3><span class="cnt">${S.view === "done" ? `${list.length} completed` : `${pend} ${S.view === "all" ? "open" : VIEWS.find(x=>x[0]===S.view)[1].toLowerCase()}`}</span></div>`;
+  const sub = v.Link ? `<div class="col-sub">${ICON.link}<span>Two-way sync with the ${esc(v.Name)} dashboard</span>${v.DashboardURL ? `<a href="${esc(v.DashboardURL)}" target="_blank" rel="noopener">Open ${ICON.ext}</a>` : ""}</div>` : "";
+  let body;
+  if (L?.error) body = `<div class="empty">${esc(L.error)}</div>`;
+  else if (v.Link){
+    const lead = sortItems(list.filter(it => it.kind === "kc")), help = sortItems(list.filter(it => it.kind === "kcsub"));
+    body = `<div class="sec"><span>Leading</span><span>${lead.length}</span></div>${renderList(v.Key+":lead", lead)}
+            <div class="sec"><span>Helping on</span><span>${help.length}</span></div>${renderList(v.Key+":help", help)}`;
+  } else body = `<div class="sec"><span>${S.view === "done" ? "Completed, newest first" : "Tasks"}</span><span>${list.length}</span></div>${renderList(v.Key, sortItems(list))}`;
+  return `<section class="col" style="${vStyle(v)}" aria-label="${esc(v.Name)}"><div class="col-top">${head}${sub}</div>${body}</section>`;
+}
+
+function renderList(id, list){
+  if (!list.length) return `<div class="empty">${emptyText()}</div>`;
+  const cap = S.venture ? 40 : 12, show = S.showAll[id] ? list : list.slice(0, cap);
+  return `<div class="list">${show.map(renderCard).join("")}</div>${list.length > show.length ? `<button class="btn small more" data-more="${esc(id)}">Show all ${list.length}</button>` : ""}`;
+}
+function emptyText(){ return {pending:"Nothing pending here.", overdue:"Nothing overdue.", week:"Nothing due in the next 7 days.", waiting:"Nothing waiting on others.", done:"Nothing completed yet.", all:"No tasks yet."}[S.view] || "Nothing here."; }
+
+const stClass = s => "s-" + String(s||"").toLowerCase().replace(/[^a-z]/g,"");
+function dueHTML(it){
+  if (!it.due) return `<span class="due">${ICON.cal}No due date</span>`;
+  if (!isOpen(it)) return `<span class="due">${ICON.cal}${fmtShort(it.due)}</span>`;
+  const d = daysBetween(todayISO(), it.due);
+  if (isOverdue(it)) return `<span class="due od">${ICON.cal}Overdue, ${fmtShort(it.due)}</span>`;
+  if (d === 0) return `<span class="due soon">${ICON.cal}Due today</span>`;
+  if (d === 1) return `<span class="due soon">${ICON.cal}Due tomorrow</span>`;
+  return `<span class="due ${d <= 7 ? "soon" : ""}">${ICON.cal}${fmtShort(it.due)}</span>`;
+}
+function renderCard(it){
+  const open = isOpen(it), on = it.status === "Done";
+  const circle = `<button class="circle ${it.kind === "kcsub" ? "sq" : ""} ${on ? "on" : ""}" data-done="${esc(it.key)}" ${canDone(it) ? "" : "disabled"} aria-label="${on ? "Reopen" : "Mark done"}: ${esc(it.title)}">${ICON.check}</button>`;
+  const st = it.kind === "kcsub" ? "" : `<button class="st ${stClass(it.status)}" data-status="${esc(it.key)}" ${canDone(it) ? "" : "disabled"} aria-haspopup="menu">${esc(it.status)}${canDone(it) ? ICON.caret : ""}</button>`;
+  const prog = it.kind === "kc" && it.subs.length ? (() => { const d = it.subs.filter(s => s.Status === "Done").length; return `<span>${d} of ${it.subs.length} sub-tasks</span><span class="bar"><i style="width:${Math.round(d/it.subs.length*100)}%"></i></span>`; })() : "";
+  return `<article class="card ${isOverdue(it) ? "od" : ""} ${open ? "" : "closed"}">
+    ${circle}<button class="t" data-open="${esc(it.key)}" ${st ? "" : 'style="grid-column:2/-1"'}>${esc(it.title)}</button>${st}
+    <div class="meta">${dueHTML(it)}<span class="pri ${esc(it.pri)}" title="Priority ${esc(PRI_NAME[it.pri]||it.pri)}">${esc(it.pri)}</span>${it.kind === "local" && it.type ? `<span class="tag">${esc(it.type)}</span>` : ""}${prog}<span class="id">${esc(it.id)}</span>${!open && it.completedAt ? `<span>Closed ${fmtShort(it.completedAt.slice(0,10))}</span>` : ""}</div>
+    ${it.kind === "kcsub" ? `<p class="par"><b>On:</b> ${esc(it.parent.Title)}</p>` : ""}
+    ${open && WAITS.has(it.status) && it.waiting ? `<p class="wait"><b>Waiting on:</b> ${esc(it.waiting)}</p>` : open && it.next ? `<p class="next"><b>Next:</b> ${esc(it.next)}</p>` : ""}
+  </article>`;
+}
+
+function renderCalendar(scoped){
+  const ym = S.calMonth, [y, m] = ym.split("-").map(Number);
+  const first = new Date(y, m-1, 1), startDow = (first.getDay() + 6) % 7, days = new Date(y, m, 0).getDate();
+  const cells = [], total = Math.ceil((startDow + days) / 7) * 7;
+  for (let i = 0; i < total; i++) cells.push(localISO(new Date(y, m-1, 1 - startDow + i)));
+  const byDay = {}; scoped.filter(it => it.due && (S.view === "done" ? true : isOpen(it))).forEach(it => (byDay[it.due] = byDay[it.due] || []).push(it));
+  const t = todayISO();
+  return `<section class="cal" aria-label="Calendar">
+    <div class="cal-h"><button class="icon-btn" data-cal="-1" aria-label="Previous month">&#8249;</button><h3>${MONTHS[m-1]} ${y}</h3><button class="icon-btn" data-cal="1" aria-label="Next month">&#8250;</button>
+      <button class="btn small ghost" data-cal="0">This month</button><span class="note" style="margin-left:auto">${S.view === "done" ? "All tasks with a due date" : "Open tasks by due date"}</span></div>
+    <div class="cal-g">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d => `<div class="dn">${d}</div>`).join("")}
+      ${cells.map(iso => { const list = sortItems(byDay[iso] || []); const out = iso.slice(0,7) !== ym;
+        return `<div class="day ${out ? "out" : ""} ${iso === t ? "today" : ""}"><span class="d">${Number(iso.slice(8))}</span>
+          ${list.slice(0,3).map(it => `<button class="ev ${isOpen(it) ? "" : "done"}" style="${vStyle(it.v)}" data-open="${esc(it.key)}" title="${esc(it.v.Name)}: ${esc(it.title)}">${esc(it.title)}</button>`).join("")}
+          ${list.length > 3 ? `<button class="ev more" data-day="${iso}">+${list.length-3} more</button>` : ""}</div>`; }).join("")}
+    </div></section>`;
+}
+
+function renderSignIn(error){
+  $("#hdr").hidden = true;
+  $("#main").innerHTML = `<div class="center"><div class="signin"><div class="plate"><img class="logo" alt="Adroit Associates" src="${LOGO_SRC}"></div>
+    <h1>CEO Tasks</h1><p>Sign in with your Adroit Microsoft 365 account to see and update your tasks across every venture.</p>
+    ${error ? `<div class="err">${esc(error)}</div>` : ""}<button class="btn primary" id="signIn" type="button">Sign in with Microsoft</button></div></div>`;
+  $("#signIn").onclick = () => Auth.login().catch(e => renderSignIn(friendlyError(e)));
+}
+function renderFatal(msg, canSignOut){
+  $("#hdr").hidden = true;
+  $("#main").innerHTML = `<div class="center"><div class="signin"><div class="plate"><img class="logo" alt="Adroit Associates" src="${LOGO_SRC}"></div><h1>CEO Tasks</h1>
+    <div class="err">${esc(msg)}</div><button class="btn" type="button" onclick="location.reload()">Try again</button>${canSignOut ? ` <button class="btn ghost" type="button" id="so">Sign out</button>` : ""}</div></div>`;
+  $("#so")?.addEventListener("click", () => Auth.logout());
+}
+
+/* =====================================================================
+   Wiring
+   ===================================================================== */
+function wireHeader(){
+  const q = $("#q"); let tmr;
+  q.oninput = () => { clearTimeout(tmr); tmr = setTimeout(() => { S.q = q.value.trim(); render(); }, 150); };
+  $("#addBtn").onclick = openAddForm;
+  $("#themeBtn").onclick = cycleTheme;
+  const initials = (S.me?.name || "Me").replace(/\(.*\)/,"").trim().split(/\s+/).map(w => w[0]).filter(Boolean);
+  $("#meBtn").textContent = ((initials[0]||"") + (initials.length > 1 ? initials[initials.length-1] : "")).toUpperCase() || "ME";
+  $("#meBtn").onclick = openAccount;
+}
+function wireMain(){
+  const main = $("#main");
+  main.onclick = async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.view){ S.view = b.dataset.view; S.cal = false; savePrefs(); render(); }
+    else if (b.dataset.venture !== undefined && b.classList.contains("chip")){ S.venture = b.dataset.venture; savePrefs(); render(); }
+    else if (b.dataset.jump){ const [v, view] = b.dataset.jump.split("|"); S.venture = v; S.view = view; S.cal = false; savePrefs(); render(); $(".toolbar")?.scrollIntoView({behavior:"smooth", block:"start"}); }
+    else if (b.dataset.more){ S.showAll[b.dataset.more] = true; render(); }
+    else if (b.dataset.open) openTask(b.dataset.open);
+    else if (b.dataset.status) openMenu(b);
+    else if (b.dataset.done) await toggleDone(b.dataset.done, b);
+    else if (b.dataset.cal !== undefined){ const n = +b.dataset.cal; if (!n) S.calMonth = todayISO().slice(0,7); else { const [y,m] = S.calMonth.split("-").map(Number); const d = new Date(y, m-1+n, 1); S.calMonth = `${d.getFullYear()}-${pad(d.getMonth()+1)}`; } render(); }
+    else if (b.dataset.day){ openDay(b.dataset.day); }
+    else if (b.dataset.act === "cal"){ S.cal = !S.cal; savePrefs(); render(); }
+    else if (b.dataset.act === "filters"){ S.showFilters = !S.showFilters; render(); }
+    else if (b.dataset.act === "clearFilters"){ S.pri = ""; S.type = ""; render(); }
+  };
+  $("#sortSel").onchange = e => { S.sort = e.target.value; savePrefs(); render(); };
+  const fp = $("#fPri"), ft = $("#fType");
+  if (fp) fp.onchange = e => { S.pri = e.target.value; render(); };
+  if (ft) ft.onchange = e => { S.type = e.target.value; render(); };
+}
+function themeIcon(){ const t = document.documentElement.dataset.theme; const b = $("#themeBtn"); if (b) b.setAttribute("aria-label", `Theme: ${t === "dark" ? "Dark" : t === "light" ? "Light" : "Automatic"}. Select to change.`); }
+function cycleTheme(){
+  const cur = document.documentElement.dataset.theme || "", next = cur === "" ? "light" : cur === "light" ? "dark" : "";
+  if (next) document.documentElement.dataset.theme = next; else delete document.documentElement.dataset.theme;
+  try { next ? localStorage.setItem("ceo-theme", next) : localStorage.removeItem("ceo-theme"); } catch(e){}
+  themeIcon(); toast(`Theme: ${next ? next[0].toUpperCase() + next.slice(1) : "Automatic (follows your device)"}`);
+}
+let toastTmr;
+function toast(msg, action){
+  const el = $("#toast"); clearTimeout(toastTmr);
+  el.innerHTML = `<span>${esc(msg)}</span>${action ? `<button type="button">${esc(action.label)}</button>` : ""}`;
+  if (action) el.querySelector("button").onclick = () => { el.classList.remove("show"); action.fn(); };
+  el.classList.add("show"); toastTmr = setTimeout(() => el.classList.remove("show"), action ? 6500 : 3200);
+}
+function showError(msg){ const dlg = $("#dlg"); dlg.innerHTML = `<div class="dlg-in"><h2>That did not save</h2><p>${esc(msg)}</p><div class="dlg-actions"><button class="btn primary" type="button">OK</button></div></div>`; dlg.querySelector("button").onclick = () => dlg.close(); dlg.showModal(); }
+function openAccount(){
+  const dlg = $("#dlg");
+  dlg.innerHTML = `<div class="dlg-in"><h2>${esc(S.me?.name || "Account")}</h2><p class="note">${esc(S.me?.email || "")}</p>
+    <p>Adroit tasks stay in step with the CEO agent: your changes here reach the agent on its next run, and its new actions show up here. Ventures with their own dashboard sync both ways instantly.</p>
+    <div class="dlg-actions"><button class="btn" data-a="theme" type="button">Theme</button>${S.mode === "live" ? `<button class="btn" data-a="out" type="button">Sign out</button>` : ""}<button class="btn primary" data-a="close" type="button">Close</button></div></div>`;
+  dlg.querySelector('[data-a="close"]').onclick = () => dlg.close();
+  dlg.querySelector('[data-a="out"]')?.addEventListener("click", () => Auth.logout());
+  dlg.querySelector('[data-a="theme"]').onclick = cycleTheme;
+  dlg.showModal();
+}
+function openDay(iso){
+  const list = sortItems(buildItems().filter(it => it.due === iso && (!S.venture || it.v.Key === S.venture) && matches(it)));
+  const dlg = $("#dlg");
+  dlg.innerHTML = `<div class="dlg-in"><h2>${fmtDate(iso)}</h2><div class="list" style="padding:8px 0 0">${list.map(renderCard).join("")}</div><div class="dlg-actions"><button class="btn primary" type="button" data-a="close">Close</button></div></div>`;
+  dlg.querySelector('[data-a="close"]').onclick = () => dlg.close();
+  dlg.onclick = e => { const b = e.target.closest("button[data-open]"); if (b){ dlg.close(); openTask(b.dataset.open); } };
+  dlg.showModal();
+}
+
+/* ---------- status menu ---------- */
+function statusesFor(it){ return it.kind === "kc" ? KC_STATUSES : LOCAL_STATUSES; }
+function openMenu(btn){
+  const it = buildItems().find(x => x.key === btn.dataset.status); if (!it || !canDone(it)) return;
+  const menu = $("#stMenu");
+  if (menu.classList.contains("open") && menu.dataset.for === it.key){ closeMenu(); return; }
+  menu.dataset.for = it.key;
+  menu.innerHTML = statusesFor(it).map(s => `<button role="menuitemradio" aria-checked="${s === it.status}" data-s="${esc(s)}"><span class="sw ${stClass(s)}" style="background:currentColor"></span>${esc(s)}</button>`).join("");
+  const r = btn.getBoundingClientRect();
+  menu.style.top = `${Math.min(r.bottom + 6, innerHeight - 230)}px`; menu.style.left = `${Math.max(8, Math.min(r.right - 180, innerWidth - 190))}px`;
+  menu.classList.add("open"); menu.querySelector("button")?.focus();
+  menu.onclick = async e => { const b = e.target.closest("button[data-s]"); if (!b) return; closeMenu(); await setStatus(it, b.dataset.s); };
+}
+function closeMenu(){ $("#stMenu")?.classList.remove("open"); }
+document.addEventListener("click", e => { if (!e.target.closest("#stMenu") && !e.target.closest("[data-status]")) closeMenu(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+
+/* =====================================================================
+   Writes
+   ===================================================================== */
+async function guarded(fn){
+  if (!navigator.onLine){ toast("You are offline. Reconnect and try again."); return false; }
+  S.writing = true; setSync("busy");
+  try { return await fn(); }
+  catch(e){ console.error(e); showError(friendlyError(e)); return false; }
+  finally { S.writing = false; setSync("ok"); }
+}
+const logRow = (user, action, id, details) => ({Timestamp: nowStamp(), User: user, Action: action, TaskID: id, Details: String(details).slice(0, 400)});
+
+/* Ask before saving over a field that someone (or the agent) changed since this page loaded it. */
+function conflictAsk(fresh, base, changes){
+  const clash = Object.keys(changes).filter(k => String(fresh[k] ?? "") !== String(base[k] ?? "") && String(fresh[k] ?? "") !== String(changes[k] ?? ""));
+  if (!clash.length) return Promise.resolve(true);
+  return new Promise(resolve => {
+    const dlg = $("#dlg");
+    dlg.innerHTML = `<div class="dlg-in"><h2>Changed somewhere else</h2><p>${esc(fresh.UpdatedBy || "Someone")} changed this at ${esc(fmtStamp(fresh.UpdatedAt))}, after you opened it.</p>
+      <ul>${clash.map(k => `<li><b>${esc(k)}</b>: now "${esc(String(fresh[k]).slice(0,80))}", yours "${esc(String(changes[k]).slice(0,80))}"</li>`).join("")}</ul>
+      <div class="dlg-actions"><button class="btn" data-c="0" type="button">Keep theirs</button><button class="btn primary" data-c="1" type="button">Save mine</button></div></div>`;
+    let done = false;
+    dlg.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { done = true; dlg.close(); resolve(b.dataset.c === "1"); });
+    dlg.onclose = () => { if (!done) resolve(false); };
+    dlg.showModal();
+  });
+}
+
+/* Local tasks (Adroit and ventures without their own dashboard) live in the CEO Tasks workbook. */
+async function saveLocal(it, changes, action){
+  return guarded(async () => {
+    const fresh = await S.ceo.readRow("Tasks", it.id);
+    if (!fresh) throw new GraphError(404, "rowNotFound", `${it.id} is no longer in the workbook. The agent may have renamed it; refresh and try again.`);
+    if (!(await conflictAsk(fresh, it.row, changes))) return false;
+    const stamp = nowStamp(), rec = {...fresh, ...changes, UpdatedBy: S.me.name || S.me.email || "Me", UpdatedAt: stamp};
+    if (changes.Status === "Done" && fresh.Status !== "Done") rec.CompletedAt = stamp;
+    else if (changes.Status && !CLOSED.has(changes.Status)) rec.CompletedAt = "";
+    else if (changes.Status === "Dropped") rec.CompletedAt = stamp;
+    await S.ceo.session(async () => {
+      await S.ceo.patch("Tasks", rec);
+      await S.ceo.add("ActivityLog", [logRow(rec.UpdatedBy, action, it.id, Object.entries(changes).map(([k,v]) => `${k}: "${String(fresh[k]||"").slice(0,50)}" to "${String(v).slice(0,50)}"`).join("; "))]);
+    });
+    return true;
+  });
+}
+
+/* Linked venture tasks are written straight into that venture's workbook, following its rules:
+   only the lead changes a task, Done closes open sub-tasks after confirmation, Blocked needs a reason. */
+async function saveKC(it, changes, action){
+  const L = it.L; let closed = [];
+  const ok = await guarded(async () => {
+    const fresh = await L.store.readRow("Tasks", it.id);
+    if (!fresh) throw new GraphError(404, "rowNotFound", `${it.id} is no longer in the ${it.v.Name} workbook.`);
+    if (fresh.Lead !== L.me) throw new Error(`${it.id} is now led by someone else, so only they can change it.`);
+    if (!(await conflictAsk(fresh, it.row, changes))) return false;
+    const stamp = nowStamp(), rec = {...fresh, ...changes, UpdatedBy: L.me, UpdatedAt: stamp};
+    if (changes.Status === "Done") rec.CompletedAt = stamp; else if (changes.Status) rec.CompletedAt = "";
+    await L.store.session(async () => {
+      await L.store.patch("Tasks", rec);
+      if (changes.Status === "Done"){
+        const open = (await L.store.readTable("Subtasks")).filter(s => s.TaskID === it.id && s.Status !== "Done");
+        if (open.length){ await L.store.patchMany("Subtasks", open.map(s => ({...s, Status:"Done", CompletedAt:stamp, UpdatedBy:L.me, UpdatedAt:stamp}))); closed = open; }
+      }
+      const logs = [logRow(L.me, action, it.id, Object.entries(changes).map(([k,v]) => `${k}: "${String(fresh[k]||"").slice(0,50)}" to "${String(v).slice(0,50)}"`).join("; ") + " (from CEO Tasks)")];
+      if (closed.length) logs.push(logRow(L.me, "Sub-tasks closed with task", it.id, `${L.me} closed ${closed.length} open sub-task${closed.length===1?"":"s"} when marking the task done: ${closed.map(s => s.SubtaskID).join(", ")} (from CEO Tasks)`));
+      await L.store.add("ActivityLog", logs);
+    });
+    return true;
+  });
+  return ok ? {closed} : false;
+}
+
+async function toggleSub(it, checked){
+  const L = it.L;
+  return guarded(async () => {
+    const fresh = await L.store.readRow("Subtasks", it.id);
+    if (!fresh) throw new GraphError(404, "rowNotFound", `${it.id} is no longer in the ${it.v.Name} workbook.`);
+    if (fresh.Owner !== L.me) throw new Error(`${it.id} now belongs to someone else.`);
+    const stamp = nowStamp();
+    await L.store.session(async () => {
+      await L.store.patch("Subtasks", {...fresh, Status: checked ? "Done" : "In progress", CompletedAt: checked ? stamp : "", UpdatedBy: L.me, UpdatedAt: stamp});
+      await L.store.add("ActivityLog", [logRow(L.me, checked ? "Sub-task done" : "Sub-task reopened", fresh.TaskID, `${it.id} ${fresh.Title} (from CEO Tasks)`)]);
+    });
+    return true;
+  });
+}
+
+function confirmKCDone(it){
+  return new Promise(resolve => {
+    const open = it.subs.filter(s => s.Status !== "Done"), dlg = $("#dlg");
+    dlg.innerHTML = `<div class="dlg-in"><h2>Mark ${esc(it.id)} done?</h2><p style="margin:0;color:var(--text-2)">"${esc(it.title)}"</p>
+      ${open.length ? `<p style="margin:12px 0 0">This also closes ${open.length === 1 ? "the 1 open sub-task" : `all ${open.length} open sub-tasks`} on the ${esc(it.v.Name)} dashboard:</p><ul class="subs" style="margin-top:8px">${open.map(s => `<li><span class="tt">${esc(s.Title)}</span><span class="own">${esc(s.Owner)}</span></li>`).join("")}</ul>` : `<p class="note">All sub-tasks are already done.</p>`}
+      <label class="confirm-chk"><input type="checkbox" id="doneOk"> <span>I confirm everything on this task is done${open.length ? " or no longer needed" : ""}.</span></label>
+      <div class="dlg-actions"><button type="button" class="btn" data-c="0">Cancel</button><button type="button" class="btn primary" data-c="1" disabled>Mark done</button></div></div>`;
+    const okBtn = dlg.querySelector('[data-c="1"]'); dlg.querySelector("#doneOk").onchange = e => okBtn.disabled = !e.target.checked;
+    let answered = false;
+    dlg.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { answered = true; dlg.close(); resolve(b.dataset.c === "1"); });
+    dlg.onclose = () => { if (!answered) resolve(false); };
+    dlg.showModal();
+  });
+}
+function askReason(it, label){
+  return new Promise(resolve => {
+    const dlg = $("#dlg");
+    dlg.innerHTML = `<form class="dlg-in" method="dialog"><h2>What is ${esc(it.id)} waiting on?</h2><p class="note" style="margin:0 0 10px">${it.kind === "kc" ? `The other ${esc(it.v.Name)} partners will see this.` : "Shown on the task so you know what to chase."}</p>
+      <input id="why" class="inp" value="${esc(it.waiting || "")}" placeholder="For example: a reply from the client">
+      <div class="dlg-actions"><button type="button" class="btn" data-c="0">Cancel</button><button type="submit" class="btn primary">Set to ${esc(label)}</button></div></form>`;
+    const inp = dlg.querySelector("#why"); let answered = false;
+    dlg.querySelector('[data-c="0"]').onclick = () => { answered = true; dlg.close(); resolve(null); };
+    dlg.querySelector("form").onsubmit = e => { e.preventDefault(); const v = clean(inp.value); if (!v){ inp.focus(); return; } answered = true; dlg.close(); resolve(v); };
+    dlg.onclose = () => { if (!answered) resolve(null); };
+    dlg.showModal(); inp.focus();
+  });
+}
+
+async function setStatus(it, status, opts={}){
+  if (it.status === status) return;
+  if (it.kind === "local"){
+    const ch = {Status: status};
+    if (status === "Waiting"){ const r = await askReason(it, "Waiting"); if (r === null) return; ch.WaitingOn = r; }
+    const prev = it.status;
+    if (await saveLocal(it, ch, status === "Done" ? "Marked done" : "Updated")){
+      await refresh();
+      toast(status === "Done" ? `${it.id} done.` : `${it.id} set to ${status}.`, opts.noUndo ? null : {label:"Undo", fn: async () => { const cur = buildItems().find(x => x.key === it.key); if (cur) await setStatus(cur, prev, {noUndo:true}); }});
+      if (opts.reopen) openTask(it.key);
+    }
+  } else if (it.kind === "kc"){
+    const ch = {Status: status};
+    if (status === "Done" && !(await confirmKCDone(it))) return;
+    if (status === "Blocked"){ const r = await askReason(it, "Blocked"); if (r === null) return; ch.BlockedReason = r; }
+    const res = await saveKC(it, ch, status === "Done" ? "Marked done" : "Updated");
+    if (res){ await refresh(); toast(status === "Done" ? `${it.id} done on the ${it.v.Name} dashboard${res.closed.length ? `, ${res.closed.length} sub-task${res.closed.length===1?"":"s"} closed` : ""}.` : `${it.id} set to ${status} on the ${it.v.Name} dashboard.`); if (opts.reopen) openTask(it.key); }
+  }
+}
+
+async function toggleDone(key, btn){
+  const it = buildItems().find(x => x.key === key); if (!it || !canDone(it)) return;
+  if (btn) btn.disabled = true;
+  if (it.kind === "kcsub"){
+    const checked = it.status !== "Done";
+    if (await toggleSub(it, checked)){ await refresh(); toast(checked ? `${it.id} ticked on the ${it.v.Name} dashboard.` : `${it.id} reopened.`); }
+    else render();
+    return;
+  }
+  await setStatus(it, it.status === "Done" ? (it.kind === "kc" ? "In progress" : "Not started") : "Done");
+  if (btn?.isConnected) btn.disabled = false;
+}
+
+/* =====================================================================
+   Task sheet
+   ===================================================================== */
+function openTask(key){
+  closeMenu();
+  const it = buildItems().find(x => x.key === key); if (!it) return;
+  const sheet = $("#sheet"), editable = canDone(it) && it.kind !== "kcsub";
+  const v = it.v, vchip = `<span class="vchip" style="${vStyle(v)}"><span class="vdot"></span>${esc(v.Name)}</span>`;
+  let body = "";
+  if (it.kind === "kcsub"){
+    const L = it.L, t = it.parent, all = (L.data.Subtasks || []).filter(s => s.TaskID === t.TaskID).sort((a,b) => (+a.Order||0) - (+b.Order||0));
+    body = `<div class="ro">Your sub-task on <b>${esc(t.TaskID)}</b>, led by <b>${esc(t.Lead)}</b>. Due ${it.due ? fmtDate(it.due) : "date not set"}.</div>
+      <div class="fld"><span>Task</span><div style="font:700 16px/1.35 var(--font-d)">${esc(t.Title)}</div></div>
+      <div class="fld"><span>Sub-tasks</span>${subList(all, L)}</div>
+      <p class="note">Tick your own sub-tasks here or on the ${esc(v.Name)} dashboard. Only ${esc(t.Lead)} can change the task itself.</p>`;
+  } else {
+    const st = statusesFor(it), priSel = ["P1","P2","P3"].map(p => `<option value="${p}" ${it.pri===p?"selected":""}>${PRI_NAME[p]}</option>`).join("");
+    body = `<label class="fld"><span>Task</span><textarea class="inp title" name="Title" rows="2" ${editable?"":"readonly"}>${esc(it.title)}</textarea></label>
+      <div class="grid3">
+        <label class="fld"><span>Status</span><select class="inp" name="Status" ${editable?"":"disabled"}>${st.map(s => `<option ${s===it.status?"selected":""}>${esc(s)}</option>`).join("")}${st.includes(it.status) ? "" : `<option selected>${esc(it.status)}</option>`}</select></label>
+        <label class="fld"><span>Due date</span><input class="inp" type="date" name="DueDate" value="${esc(it.due||"")}" ${editable?"":"readonly"}></label>
+        <label class="fld"><span>Priority</span><select class="inp" name="Priority" ${editable?"":"disabled"}>${priSel}</select></label>
+      </div>
+      <label class="fld" id="waitFld" ${WAITS.has(it.status) ? "" : "hidden"}><span>Waiting on</span><input class="inp" name="Waiting" value="${esc(it.waiting||"")}" placeholder="Who or what it is waiting on"></label>
+      ${it.kind === "local" ? `<label class="fld"><span>Next step</span><textarea class="inp" name="NextStep" rows="3">${esc(it.next||"")}</textarea></label>` : ""}
+      ${it.kind === "kc" && it.desc ? `<div class="fld"><span>Description</span><div class="ro">${esc(it.desc)}</div></div>` : ""}
+      <label class="fld"><span>Notes</span><textarea class="inp" name="Notes" rows="3" placeholder="${it.kind === "local" && v.Key === "adroit" ? "The CEO agent reads this on its next run" : "Your notes"}">${esc(it.notes||"")}</textarea></label>
+      ${it.kind === "kc" ? `<div class="fld"><span>Sub-tasks</span>${it.subs.length ? subList(it.subs, it.L) : `<div class="note">No sub-tasks yet.</div>`}</div>` : ""}
+      ${it.why ? `<div class="ro"><b>Why it matters:</b> ${esc(it.why)}</div>` : ""}
+      <div class="note">${[it.type ? esc(it.type) : "", it.ref ? `Linked record ${esc(it.ref)}` : "", it.source ? `Source: ${esc(it.source)}` : "", it.row.UpdatedAt ? `Last updated ${esc(fmtStamp(it.row.UpdatedAt))}${it.row.UpdatedBy ? ` by ${esc(it.row.UpdatedBy)}` : ""}` : ""].filter(Boolean).join(" · ")}</div>`;
+  }
+  sheet.innerHTML = `<form method="dialog" id="taskForm">
+    <div class="sheet-h">${vchip}<span class="id">${esc(it.id)}</span>${v.Link && v.DashboardURL ? `<a class="note" href="${esc(v.DashboardURL)}" target="_blank" rel="noopener">Open on the ${esc(v.Name)} dashboard ${ICON.ext}</a>` : ""}<button type="button" class="icon-btn x" data-x aria-label="Close">${ICON.x}</button></div>
+    <div class="sheet-b">${body}
+      ${editable ? `<div class="dlg-actions" style="margin-top:4px"><button type="button" class="btn" data-x>Cancel</button><button type="submit" class="btn primary">Save</button></div>` : ""}
+    </div></form>`;
+  sheet.querySelectorAll("[data-x]").forEach(b => b.onclick = () => sheet.close());
+  const f = $("#taskForm");
+  f.Status?.addEventListener("change", () => { $("#waitFld").hidden = !WAITS.has(f.Status.value); });
+  sheet.querySelectorAll("input[data-sub]").forEach(cb => cb.onchange = async () => {
+    const sub = buildItems().find(x => x.key === `${v.Key}:${cb.dataset.sub}`) || {kind:"kcsub", v, L:it.L, id:cb.dataset.sub};
+    cb.disabled = true;
+    if (await toggleSub(sub, cb.checked)){ await refresh(); toast(`${cb.dataset.sub} ${cb.checked ? "ticked" : "reopened"}.`); openTask(key); } else cb.checked = !cb.checked;
+    cb.disabled = false;
+  });
+  f.onsubmit = async e => { e.preventDefault(); await saveSheet(it, f); };
+  sheet.showModal();
+}
+function subList(subs, L){
+  return `<ul class="subs">${subs.map(s => `<li class="${s.Status === "Done" ? "done" : ""}"><input type="checkbox" data-sub="${esc(s.SubtaskID)}" ${s.Status === "Done" ? "checked" : ""} ${s.Owner === L.me ? "" : "disabled"} aria-label="${esc(s.Title)}">
+    <span class="tt">${esc(s.Title)}</span><span class="own">${esc(s.Owner === L.me ? "You" : s.Owner)}${s.DueDate ? `, ${fmtShort(s.DueDate)}` : ""}</span></li>`).join("")}</ul>`;
+}
+async function saveSheet(it, f){
+  const val = n => f[n] ? clean(f[n].value) : undefined;
+  const status = f.Status.value, ch = {};
+  const title = val("Title"); if (!title){ toast("The task cannot be empty."); return; }
+  if (title !== it.title) ch.Title = title;
+  if ((f.DueDate.value || "") !== (it.due || "")) ch.DueDate = f.DueDate.value;
+  if (WAITS.has(status) && !val("Waiting")){ toast("Say what it is waiting on."); f.Waiting.focus(); return; }
+  if (it.kind === "local"){
+    if (status !== it.status) ch.Status = status;
+    if (f.Priority.value !== it.pri) ch.Priority = f.Priority.value;
+    if (WAITS.has(status) && val("Waiting") !== (it.waiting || "")) ch.WaitingOn = val("Waiting");
+    if (val("NextStep") !== (it.next || "")) ch.NextStep = val("NextStep");
+    if (val("Notes") !== (it.notes || "")) ch.Notes = val("Notes");
+    if (!Object.keys(ch).length){ $("#sheet").close(); return; }
+    if (await saveLocal(it, ch, ch.Status === "Done" ? "Marked done" : "Updated")){ $("#sheet").close(); toast(`${it.id} saved.`); await refresh(); }
+  } else {
+    if (status !== it.status) ch.Status = status;
+    if (PRI_TO_KC[f.Priority.value] !== it.row.Priority && f.Priority.value !== it.pri) ch.Priority = PRI_TO_KC[f.Priority.value];
+    if (status === "Blocked" && val("Waiting") !== (it.waiting || "")) ch.BlockedReason = val("Waiting");
+    if (val("Notes") !== (it.notes || "")) ch.Notes = val("Notes");
+    if (!Object.keys(ch).length){ $("#sheet").close(); return; }
+    if (ch.Status === "Done" && !(await confirmKCDone(it))) return;
+    const res = await saveKC(it, ch, ch.Status === "Done" ? "Marked done" : "Updated");
+    if (res){ $("#sheet").close(); toast(`${it.id} saved on the ${it.v.Name} dashboard.`); await refresh(); }
+  }
+}
+
+/* =====================================================================
+   Add task
+   ===================================================================== */
+function openAddForm(){
+  const vs = ventures(), pre = S.venture || vs[0]?.Key, dlg = $("#sheet");
+  dlg.innerHTML = `<form method="dialog" id="addForm">
+    <div class="sheet-h"><b class="disp" style="font-size:18px;color:var(--head)">Add a task</b><button type="button" class="icon-btn x" data-x aria-label="Close">${ICON.x}</button></div>
+    <div class="sheet-b">
+      <label class="fld"><span>Venture</span><select class="inp" name="Venture">${vs.map(v => `<option value="${esc(v.Key)}" ${v.Key===pre?"selected":""} ${v.Link && !S.links[v.Key]?.me ? "disabled" : ""}>${esc(v.Name)}${v.Link ? " (adds to its dashboard)" : ""}</option>`).join("")}</select></label>
+      <label class="fld"><span>Task</span><textarea class="inp title" name="Title" rows="2" required placeholder="Start with a verb, for example: Send the revised budget to the partner"></textarea></label>
+      <div class="grid3">
+        <label class="fld"><span>Due date</span><input class="inp" type="date" name="DueDate" min="${todayISO()}"></label>
+        <label class="fld"><span>Priority</span><select class="inp" name="Priority"><option value="P1">P1, high</option><option value="P2" selected>P2, medium</option><option value="P3">P3, low</option></select></label>
+        <label class="fld" id="domFld"><span>Area</span><select class="inp" name="Domain"></select></label>
+      </div>
+      <label class="fld" id="nextFld"><span>Next step</span><textarea class="inp" name="NextStep" rows="2" placeholder="Optional"></textarea></label>
+      <label class="fld"><span>Notes</span><textarea class="inp" name="Notes" rows="2" placeholder="Optional"></textarea></label>
+      <p class="note" id="addNote"></p>
+      <div class="dlg-actions"><button type="button" class="btn" data-x>Cancel</button><button type="submit" class="btn primary">Add task</button></div>
+    </div></form>`;
+  const f = $("#addForm");
+  const sync = () => {
+    const v = ventureByKey(f.Venture.value), linked = !!v?.Link;
+    $("#domFld").hidden = !linked; $("#nextFld").hidden = linked;
+    if (linked){ const doms = [...new Set((S.links[v.Key]?.data?.Tasks || []).map(t => t.Domain).filter(Boolean))].sort(); f.Domain.innerHTML = doms.map(d => `<option>${esc(d)}</option>`).join(""); }
+    $("#addNote").textContent = linked ? `Added to the ${v.Name} dashboard with you as lead and marked "Needs sub-tasks", so its agent writes the sub-tasks.` : v?.Key === "adroit" ? "The CEO agent picks this up on its next run and adds it to its action list." : "";
+  };
+  f.Venture.onchange = sync; sync();
+  dlg.querySelectorAll("[data-x]").forEach(b => b.onclick = () => dlg.close());
+  f.onsubmit = async e => { e.preventDefault(); await createTask(f); };
+  dlg.showModal(); f.Title.focus();
+}
+async function createTask(f){
+  const v = ventureByKey(f.Venture.value), title = clean(f.Title.value), due = f.DueDate.value;
+  if (!v || !title){ toast("Write the task first."); return; }
+  if (due && due < todayISO()){ toast("The due date is before today."); return; }
+  const stamp = nowStamp(); let newId = null;
+  const btn = f.querySelector('[type="submit"]'); btn.disabled = true;
+  let ok;
+  if (v.Link === "kc"){
+    const L = S.links[v.Key];
+    ok = await guarded(async () => {
+      await L.store.session(async () => {
+        const tasks = await L.store.readTable("Tasks");
+        const n = Math.max(0, ...tasks.map(t => +((t.TaskID||"").match(/^KC-(\d{4})$/)||[0,0])[1])) + 1;
+        newId = `KC-${String(n).padStart(4,"0")}`;
+        await L.store.add("Tasks", [{TaskID:newId, Title:title, Description:"", Domain:f.Domain.value || "Cross-cutting", Lead:L.me, Support:"", Priority:PRI_TO_KC[f.Priority.value], Status:"Needs sub-tasks",
+          StartDate:todayISO(), DueDate:due, Recurrence:"None", Source:"CEO Tasks tracker", AllPartnerApproval:"No", BlockedReason:"", Notes:clean(f.Notes.value), CreatedBy:L.me, CreatedAt:stamp, UpdatedBy:L.me, UpdatedAt:stamp, CompletedAt:""}]);
+        await L.store.add("ActivityLog", [logRow(L.me, "Task added", newId, `${title} | lead ${L.me} (from CEO Tasks)`)]);
+      });
+      return true;
+    });
+  } else {
+    ok = await guarded(async () => {
+      await S.ceo.session(async () => {
+        const tasks = await S.ceo.readTable("Tasks"), pre = v.Prefix || v.Key.slice(0,2).toUpperCase();
+        const re = new RegExp(`^${pre}-(\\d{4})$`);
+        const n = Math.max(0, ...tasks.map(t => +((t.TaskID||"").match(re)||[0,0])[1])) + 1;
+        newId = `${pre}-${String(n).padStart(4,"0")}`;
+        const me = S.me.name || S.me.email || "Me";
+        await S.ceo.add("Tasks", [{TaskID:newId, Venture:v.Key, Title:title, NextStep:clean(f.NextStep.value), Why:"", Type:"", Priority:f.Priority.value, Status:"Not started", DueDate:due,
+          WaitingOn:"", Notes:clean(f.Notes.value), SourceRef:"", Source:"CEO Tasks tracker", CreatedBy:me, CreatedAt:stamp, UpdatedBy:me, UpdatedAt:stamp, CompletedAt:"", AgentSyncedAt:""}]);
+        await S.ceo.add("ActivityLog", [logRow(me, "Task added", newId, title)]);
+      });
+      return true;
+    });
+  }
+  if (ok){ $("#sheet").close(); toast(`${newId} added to ${v.Name}.`); S.venture = S.venture && S.venture !== v.Key ? v.Key : S.venture; await refresh(); }
+  else if (btn.isConnected) btn.disabled = false;
+}
+
+boot();
+</script>
+</body>
+</html>
